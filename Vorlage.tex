@@ -1,17 +1,29 @@
 % Diese Vorlage soll einen Header bieten, der für die meisten Laborberichte und Hausaufgaben sinnvoll ist 
 % und zudem einige nützliche Dinge in LaTeX erklären.
 % Bisher ist sie von Steffen Brahtz und Thomas Lübbehüsen gepflegt worden, gerne können aber Sachen von anderen ergänzt werden.
-\documentclass[12pt]{article}
+\documentclass[
+12pt,
+a4paper,
+bibliography=totoc,
+listof=totoc,
+headings=small,
+parskip=half*, % Halbe Einzüge vor erste Zeile eines Absatzes, stattdessen Abstand zwischen Absätzen
+]{scrartcl}
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Standardpakete %%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[utf8]{inputenc}        % Eingabe von Umlauten im Code
 \usepackage[T1]{fontenc}           % Enkodierung von Output, böse Dinge passieren ohne dieses Package
 \usepackage[ngerman]{babel}        % Deutsches Sprachpaket
+\usepackage{scrhack}               % Warnungen bei KOMA-Skript fixen
 \usepackage{amsmath}               % Mathematische Formeln
 \usepackage{graphicx}              % Hinzufügen von Bildern / PDFs über \includegraphics{bildname}
 \usepackage{caption}               % Erweiterte Captions für Bilder, Formeln, ...
 \usepackage{physics}               % Zusätzliche wissenschaftliche Symbole und Differentialquotient mit \dd{...}
-\usepackage{fancyhdr}              % Fancy head, einfaches Hinzufügen von Kopf- & Fußzeile (TODO: Alternativen anschauen)
+\usepackage[
+headsepline,
+footsepline,
+automark
+]{scrlayer-scrpage}                % Ändern von Kopf- & Fußzeile
 \usepackage{hyperref}              % Links und Verweise in PDFs, hidelinks entfernt hässliche Rahmen um Links
 \usepackage{siunitx}               % Wissenschaftlich korrektes Angeben von Zahlen / Einheiten (wichtig bei Hampe, Siaenen), u.A. Einheiten nicht kursiv
 \usepackage[paper=a4paper,         % Seitenabstände und Papiergröße, hier recht geringe Einstellungen
@@ -23,12 +35,11 @@ includehead,includefoot            % Fuß- und Kopfzeile berücksichtigen
 ]{geometry}                   
                                 
 %%%%%%%%%%%%%%%%%%%%%%%%% Optionale Pakete, die aber praktisch sind %%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{stix2}                 % Ändert die Schriftart! (und fügt Kugelintegral hinzu)
+%\usepackage{stix2}                 % Ändert die Schriftart! (und fügt Kugelintegral hinzu)
 \usepackage{lastpage}              % Erlaubt "Seite 2 von x" im Footer, da es die Anzahl Seiten ausgibt
 \usepackage{float}                 % Welches dann in Kombination mit [H] auch wirklich die Gleitumgebung mit dem Bild oder der Tabelle an die richtige Stelle packt, nämlich (H)ere 
-\usepackage{parskip}               % Keine Einzüge vor erste Zeile eines Absatzes, stattdessen Abstand zwischen Absätzen
 \usepackage{array}                 % Matrizen in Latex
-\usepackage{esvect}                % Vektorpfeile mittels \vv{E}; ändert die Schriftart!
+%\usepackage{esvect}                % Vektorpfeile mittels \vv{E}; ändert die Schriftart!
 \usepackage{tabularx}              % Tabellen, die advanced sind
 \usepackage{enumitem}              % Erweiterte Aufzählungen, bespielsweise alternative Aufzählungssymbole 
 \usepackage{gensymb}               % Für Grad-Symbol \degree, Ohm: \ohm und einige mehr
@@ -50,8 +61,17 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung auswählen,
 \usepackage{bigstrut}              % Für das Excel2LaTeX-Addon, s.u. in Tipps
 \usepackage{cancel}                % Für durchgestrichenen Text (schlechte Messwerte zB) mit \cancel{text}
 \usepackage{easyfig}               % Einfaches includen von Bildern z.B.: \Figure[caption={LOL}, width=\textwidth]{dateiname} (Labels sind automatisch \autoref{fig:dateiname})
+\usepackage{listings}              % Includen von Code
+\usepackage{xcolor}                % Eigene Farben definen
+\usepackage{url}                   % Includenb von Links mit \url{http://thomas-harriehausen.de}
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Einstellung für Pakete und LaTeX %%%%%%%%%%%%%%%%%%%%%%%%%
+% Bestimmte Warnung von chktex deaktivieren:
+% chktex-file 46
+% chktex-file 2
+% chktex-file 1
+% chktex-file 41
+
 % Einstelllungen für das siuntix-Paket
 \sisetup{
     per-mode=fraction,             % Einheiten als Brüche statt ^-1
@@ -75,6 +95,8 @@ backend=bibtex			           % Unterdrückt irgendeine Warnung
 ]{biblatex} 
 %\addbibresource{../sources.bib}   % Optional, fügt sources.bib aus Oberverzeichnis hinzu
 \addbibresource{sources.bib}       % Optional, fügt sources.bib aus gleichem Verzeichnis hinzu
+\setcounter{biburllcpenalty}{7000} % für lange URLs im Quellverzeichnis
+\setcounter{biburlucpenalty}{8000} %
 
 % Für das todonotes package
 \reversemarginpar                  % Randnotizen auf der linken Seite, da dort mehr Platz ist
@@ -95,8 +117,11 @@ backend=bibtex			           % Unterdrückt irgendeine Warnung
 \counterwithin{table}{section}
 \counterwithin{equation}{section}
 
+% Bilder in bestimmten Subfoldern müssen diesen Subfolder nicht im Dateinamen angeben
+\graphicspath{{./fig/}{./bilder/}{./images/}{./figs/}}
+
 % Titel alle etwas kleiner, Geschmackssache
-\usepackage[small]{titlesec}
+%\usepackage[small]{titlesec}
 
 % Höherer Zeilenabstand, Dirty Harrie will eigentlich 1.2, ist außerdem gut, weil's nach mehr Seiten aussieht
 \linespread{1.15}
@@ -115,7 +140,7 @@ backend=bibtex			           % Unterdrückt irgendeine Warnung
 \setlist[enumerate]{leftmargin=*}
 
 % Aufzählungen mit a) b) statt 1. 2.
-\renewcommand{\labelenumi}{\alph{enumi})}
+\renewcommand{\labelenumi}{\alph{enumi}\)}
 
 % Ersetzt alle * im Math-Environment durch richtige Malzeichen (cdot). Wenn * für konj. komplex oder ähnliches genutzt werden soll, dann auskommentieren
 \mathcode`\*="8000
@@ -135,6 +160,27 @@ backend=bibtex			           % Unterdrückt irgendeine Warnung
 % Gleichung in Formel umbennen, Harrie mag das lieber
 \renewcommand{\equationautorefname}{Formel}
 
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+
+\lstdefinelanguage{matlab}
+{
+    basicstyle=\ttfamily,
+    breaklines=true,%
+    keywords = {syms},
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{blue}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break,imread,corr2},emphstyle=[1]\color{blue}, %some words to emphasise
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Eigene Befehle %%%%%%%%%%%%%%%%%%%%%%%%%
 % Command hinzufügen, das einfach Linien für handschriftliche Notizen zeichnet. z.B. \lines{20} oder \lines[10pt]{20} (Abstand zwischen Zeilen, Anzahl Zeilen)
@@ -144,6 +190,17 @@ backend=bibtex			           % Unterdrückt irgendeine Warnung
         \rule{\textwidth}{0.5pt}\vspace{#1}\\
     }
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%% color %%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{listingbg}{cmyk}{0,0,0,0.05}
+\definecolor{ostfalia-magenta}{cmyk}{0,1,0,0}
+\definecolor{ostfalia-green}{cmyk}{0.3,0,1,0}
+\definecolor{ostfalia-cyan}{cmyk}{0.78,0,0.32,0}
+\definecolor{ostfalia-orange}{cmyk}{0,0.3,1,0}
+\definecolor{ostfalia-yellow}{cmyk}{0,0.05,1,0}
+\definecolor{ostfalia-violet}{cmyk}{0.86,0.96,0,0}
+\definecolor{ostfalia-wf-blue}{cmyk}{1,0,0,0}
+\definecolor{ostfalia-blue}{cmyk}{1,0.75,0,0.3}
 
 % Kleines Underline, was sich gut für komplexe Zahlen eignet, z.B. \ul{U}_q
 \newcommand{\ul}[1]{\underline{#1\mkern-1.5mu}\mkern 1.5mu}
@@ -163,6 +220,9 @@ backend=bibtex			           % Unterdrückt irgendeine Warnung
 % Einfacher Befehl, um Subsection wieder bei 1 starten, damit Wechsel von V 2.2 zu D 2.1 möglich ist
 \newcommand{\resetlaborsectioncounter}{\setcounter{subsection}{0}}
 
+% ABkürzungen mit korrekten Break
+\newcommand*{\zb}{z.\,B.~\allowbreak}
+\newcommand*{\ua}{u.\,a.~\allowbreak}
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Ausfüllen %%%%%%%%%%%%%%%%%%%%%%%%%
 % Eigene Daten, werden dann in Header und PDF-Metadaten übernommen
@@ -175,21 +235,17 @@ backend=bibtex			           % Unterdrückt irgendeine Warnung
 % Metadaten in PDF
 \hypersetup{
     pdftitle={\myVersuch},
-    pdfauthor={\myGroup : \myAuthorA{} \& \myAuthorB},
+    pdfauthor={\myGroup: \myAuthorA{} \& \myAuthorB},
 }
 
-% Header und Footer mittels fancyhead
-\pagestyle{fancy} {
-  \fancyhead{} % clear all header fields
-  \fancyfoot{} % clear all footer fields
-  \fancyhead[R]{\myVersuch}
-  \fancyhead[C]{\myGroup} 
-  \fancyhead[L]{\myAuthorA \\ \myAuthorB}
-  \fancyfoot[R]{Seite \thepage{} von \pageref{LastPage}} % Seitenzahl
-  \fancyfoot[L]{\myDate}   
-}
-\renewcommand{\footrulewidth}{0.4pt} % Linienbreite zur Trennung des Headers und Footers
-\renewcommand{\headrulewidth}{0.4pt}
+% Header und Footer setzen mit KOMA
+\clearpairofpagestyles{}
+\ihead{\myAuthorA \\ \myAuthorB}
+\chead{\myGroup}
+\ohead{\myVersuch}
+%\automark{section}
+\ifoot{\myDate}
+\ofoot{Seite \thepage{} von \pageref{LastPage}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Tipps für TexStudio %%%%%%%%%%%%%%%%%%%%%%%%%
 % Bessere Rechtschreibkorrektur in TexStudio hinzufügen: https://tex.stackexchange.com/a/282571/148289
@@ -314,6 +370,27 @@ Die Schaltung wurde mit PSPICE simuliert, und mithilfe von Markern die Ausgangss
     \end{subfigure}
     \caption{Gesamtdarstellung von irgendwas}
 \end{figure}
+
+\begin{lstlisting}[language=matlab]
+syms x
+c0 = 0;
+c1 = 1;
+c2 = 0.1;
+c3 = -0.05;
+X = 2; % X = 1;
+Y1dach = c1*X + (3/4)*c3*X^3;
+Y2dach = (1/2)*c2*X^2;
+Y3dach = (1/4)*c3*X^3;
+Y1eff = (1/sqrt(2)) * Y1dach;
+Y2eff = (1/sqrt(2)) * Y2dach;
+Y3eff = (1/sqrt(2)) * Y3dach;
+Ygeseff = sqrt(Y1eff^2 + Y2eff^2 + Y3eff^2);
+
+k2 = Y2eff/Ygeseff
+k3 = Y3eff/Ygeseff
+kges = sqrt(k2^2 + k3^2)
+
+\end{lstlisting}
 
 
 \printbibliography
