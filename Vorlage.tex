@@ -1,4 +1,4 @@
-% Bosch Latex Vorlage Stand 09/20
+% Bosch Latex Vorlage Stand 11/20
 % Diese Vorlage soll vor allem einen Header bieten, der für die meisten Laborberichte und Arbeiten sinnvoll ist und hoffentlich einige nützliche Dinge in LaTeX zeigt.
 % Bisher ist sie von Steffen Brahtz und Thomas Lübbehüsen gepflegt worden, gerne können aber Sachen von anderen ergänzt werden.
 \documentclass[
@@ -47,6 +47,8 @@ parskip=half*,                     % Nur halbe Einzüge vor erste Zeile eines Ab
 \usepackage{cancel}                % Für durchgestrichenen Text (schlechte Messwerte zB) mit \cancel{text}
 \usepackage{easyfig}               % Einfaches includen von Bildern z.B.: \Figure[caption={LOL}, width=\textwidth]{dateiname} (Labels sind automatisch \autoref{fig:dateiname})
 \usepackage{tcolorbox}             % Für colorboxes (genutzt für Titelseite)
+\usepackage{pgfplots}              % Um Diagramme direkt mit Latex zu erstellen
+\usepackage{xifthen}               % Für if else Logic, wird im Header benutzt
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Einstellung für Pakete und LaTeX %%%%%%%%%%%%%%%%%%%%%%%%%
 % Bestimmte Warnung von chktex (Latex linter) deaktivieren:
@@ -54,6 +56,11 @@ parskip=half*,                     % Nur halbe Einzüge vor erste Zeile eines Ab
 % chktex-file 2
 % chktex-file 1
 % chktex-file 41
+% chktex-file 10
+% chktex-file 17
+
+% Language Tool in vs code auf deutsch stellen (Extension LTex installieren):
+% LTeX: language=de-DE
 
 % Einstellen von Seitenabständen und Größen
 \usepackage[paper=a4paper, 
@@ -71,6 +78,12 @@ includehead,includefoot            % Fuß- und Kopfzeile berücksichtigen
 %\usepackage[stix2,vvarbb]{newtxmath} % Nur sinnvoll wenn aktiverte Schrifart keine (schönen) Math-Symbole hat
 % Optional: Serifenlose Schriftart aktivieren um Leute zu triggern
 %\renewcommand{\familydefault}{\sfdefault}
+
+% Automatisch Text wie "Zitat" in deutsche Anführungszeichen umwandeln
+\MakeOuterQuote{"}
+
+% Warnung von pgfplot unterdrücken
+\pgfplotsset{compat=1.7}
 
 % Einstelllungen für das siuntix-Paket
 \sisetup{
@@ -145,7 +158,7 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 \setlist[enumerate]{leftmargin=*}
 
 % Aufzählungen mit a) b) statt 1. 2.
-\renewcommand{\labelenumi}{\alph{enumi}\)}
+\renewcommand{\labelenumi}{\alph{enumi})}
 
 % Ersetzt alle * im Math-Environment durch richtige Malzeichen (cdot). Wenn * für konj. komplex oder ähnliches genutzt werden soll, dann auskommentieren
 \mathcode`\*="8000
@@ -179,27 +192,63 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 \definecolor{ostfalia-violet}{cmyk}{0.86,0.96,0,0}
 \definecolor{ostfalia-wf-blue}{cmyk}{1,0,0,0}
 \definecolor{ostfalia-blue}{cmyk}{1,0.75,0,0.3}
-\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
-\definecolor{mylilas}{RGB}{170,55,241}
 
-\lstdefinelanguage{matlab}
-{
-    basicstyle=\ttfamily,
-    breaklines=true,%
-    keywords = {syms},
-    morekeywords={matlab2tikz},
-    keywordstyle=\color{blue},%
-    morekeywords=[2]{1}, keywordstyle=[2]{\color{blue}},
-    identifierstyle=\color{black},%
-    stringstyle=\color{mylilas},
-    commentstyle=\color{mygreen},%
-    showstringspaces=false,%without this there will be a symbol in the places where there is a space
-    numbers=left,%
-    numberstyle={\tiny \color{black}},% size of the numbers
-    numbersep=9pt, % this defines how far the numbers are from the text
-    emph=[1]{for,end,break,imread,corr2},emphstyle=[1]\color{blue}, %some words to emphasise
+% Eigenes Aussehen für Code-Blöcke definieren, kopiert von 
+% https://github.com/Wandmalfarbe/pandoc-latex-template
+\definecolor{listing-background}{HTML}{F7F7F7}
+\definecolor{listing-rule}{HTML}{B3B2B3}
+\definecolor{listing-numbers}{HTML}{B3B2B3}
+\definecolor{listing-text-color}{HTML}{000000}
+\definecolor{listing-keyword}{HTML}{435489}
+\definecolor{listing-keyword-2}{HTML}{1284CA} % additional keywords
+\definecolor{listing-keyword-3}{HTML}{9137CB} % additional keywords
+\definecolor{listing-identifier}{HTML}{435489}
+\definecolor{listing-string}{HTML}{00999A}
+\definecolor{listing-comment}{HTML}{8E8E8E}
+\lstdefinestyle{eisvogel_listing_style}{
+  language         = java,
+  numbers          = left,
+  xleftmargin      = 2.7em,
+  framexleftmargin = 2.5em,
+  backgroundcolor  = \color{listing-background},
+  basicstyle       = \color{listing-text-color}\linespread{1.0}\small\ttfamily{},
+  breaklines       = true,
+  frame            = single,
+  framesep         = 0.19em,
+  rulecolor        = \color{listing-rule},
+  frameround       = ffff,
+  tabsize          = 4,
+  numberstyle      = \color{listing-numbers},
+  aboveskip        = 1.0em,
+  belowskip        = 0.1em,
+  abovecaptionskip = 0em,
+  belowcaptionskip = 1.0em,
+  keywordstyle     = {\color{listing-keyword}\bfseries},
+  keywordstyle     = {[2]\color{listing-keyword-2}\bfseries},
+  keywordstyle     = {[3]\color{listing-keyword-3}\bfseries\itshape},
+  sensitive        = true,
+  identifierstyle  = \color{listing-identifier},
+  commentstyle     = \color{listing-comment},
+  stringstyle      = \color{listing-string},
+  showstringspaces = false,
+  escapeinside     = {/*@}{@*/}, % Allow LaTeX inside these special comments
+  literate         =
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\'e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\EUR}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+  {…}{{\ldots}}1 {≥}{{>=}}1 {≤}{{<=}}1 {„}{{\glqq}}1 {“}{{\grqq}}1
+  {”}{{''}}1
 }
-
+\lstset{style=eisvogel_listing_style}
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Eigene Befehle %%%%%%%%%%%%%%%%%%%%%%%%%
 % Kleines Underline, was sich gut für komplexe Zahlen eignet, z.B. \ul{U}_q
@@ -218,30 +267,36 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 % Einfacher Befehl, um Subsection wieder bei 1 starten, damit Wechsel von V 2.2 zu D 2.1 möglich ist
 \newcommand{\resetlaborsectioncounter}{\setcounter{subsection}{0}}
 
+% Helfer-Makro, wird weiter unten im Header benutzt.
+\newcommand{\ifempty}[3]{\ifthenelse{\equal{#1}{}}{#2}{#3}}
+
 % Abkürzungen mit korrekten Typographie (achtung Autismus)
 \newcommand*{\zb}{z.\,B.~\allowbreak}
 \newcommand*{\ua}{u.\,a.~\allowbreak}
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Ausfüllen %%%%%%%%%%%%%%%%%%%%%%%%%
 % Eigene Daten, werden dann in PDF übernommen
-\newcommand{\myAuthorA}{Max Mustermann, 70458112} 
-\newcommand{\myAuthorB}{Max Musterfrau, 70458111}
+\newcommand{\myAuthor}{Max Mustermann, 70458112} 
+\newcommand{\mySecondAuthor}{Max Musterfrau, 70458111} % Einfach leerlassen, wenn es keinen zweiten gibt
+\newcommand{\myGroup}{Gruppe X-24}
 \newcommand{\myTitle}{Versuch 1: Spannungsteiler}
 \newcommand{\myDate}{\today} % \today kann durch Text ersetzt werden
  
 % Header und Footer setzen mit KOMA
 \clearpairofpagestyles{}
-\ihead{\myAuthorA \\ \myAuthorB}
-\chead{Gruppe X-24}
+\ihead{\ifempty{\mySecondAuthor}{\myAuthor}{\myAuthor \\ \mySecondAuthor}} % Erkennt automatisch die Anzahl der Autoren
+\chead{\myGroup}
 \ohead{\myTitle}
 \ifoot{\myDate}
-\ofoot{Seite \thepage{} von \pageref{LastPage}}
+\ofoot{Seite \thepage{} von \pageref*{LastPage}}
 %\automark{section} % Automatisch die aktuelle Section im Header anzeigen
 
 % Metadaten ins generierte PDF
 \hypersetup{
     pdftitle={\myTitle},
-    pdfauthor={\myAuthorA{} \myAuthorB},
+    pdfauthor={\myAuthor{} \mySecondAuthor},
+    colorlinks=true, % Links farbig darstellen. Diese Zeile entfernen, um stattdessen roten Kästen um Links zu erzeugen, welche dann nicht gedruckt werden.
+    allcolors=ostfalia-blue % Farbe der Links einstellen
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Tipps für TexStudio %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -251,34 +306,24 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 % Word zu Latex Converter: https://www.docx2latex.com/ (Falls der Laborpartner zu inkompetent ist)
 % Latex-Addin für Excel zum Exportieren von Tabellen, sehr gut: https://github.com/krlmlr/Excel2LaTeX/releases/latest (ZIP runterladen, extrahieren und einmal die xla-Datei ausführen)
 % Excel-Addin zum (Batch-)Exportieren von Diagrammen als PNG, auch sehr gut: https://www.xltoolbox.net/de/
+% Wenn VS Code genutzt wird, sollten die Addons Latex Workshop und LTeX installiert werden
 %%%%%%%%%%%%%%%%%%%%%%%%% ENDE des Headers %%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
 \begin{document}
-%\include{titlepage}
+\counterwithin{lstlisting}{section} % Muss leider hier stehen und kann nicht in den Header
+
+%\include{titlepage} % Optionale Titlepage und Sperrvermerk für Studienarbeit/Teamprojekt/BA...
 %\include{sperrvermerk_erklaerung}
+
 \section{Vollautomatische Messung des Ladevorganges}
 \laborsubsection{V}{Entwurf der Messschaltung}
 Wir haben uns für eine spannungsrichtige\todo{Hier fehlt noch Text} Messschaltung entschieden, da der $ 2,33 \cdot 9000 $ Widerstand der Spannungsmessung so hoch ist, dass er die Strommessung nur unwesentlich beeinflusst.
 
 \section{Differenzier- und Integrierglied}
 \laborsubsection{V}{Herleitung des Mittelwertes einer Rechteckimpulsfolge}
-Die Spannung ist wie folgt definiert:
-\begin{equation}
-    u_p (t) =
-    \begin{cases}
-        U_{PH} ~ \text{für} ~ 0 \le t < t_{i} \\
-        U_{PL} ~ \text{für} ~ t_{i} \le t < T
-    \end{cases}
-\end{equation}
-Das Integral wird wie folgt gelöst:
-\begin{align}
-    \overline{u}_p & = \dfrac{1}{T} \cdot \Bigg [ \big [ U_{PH} \cdot t \big     ]_0^{t_{i}}   +    \big [  U_{PL} \cdot t \big ]_{t_{i}}^T    \Bigg ] \\
-    \overline{u}_p & = \dfrac{1}{T} \cdot  \Bigg [ \Big ( U_{PH} \cdot t_{i} - 0 \Big ) + \Big ( U_{PL} \cdot T - U_{PL} \cdot t_{i} \Big ) \Bigg ]
-\end{align}
-
-Danach ergibt sich:
+Die Spannung ist wie folgt definiert. Danach ergibt sich:
 \begin{align}
     \overline{u}_p & = \dfrac{t_{i}}{T} \cdot (U_{PH}-U_{PL}) + U_{PL} \\
                    & = T_{v} \cdot (U_{PH}-U_{PL}) + U_{PL}
@@ -350,6 +395,31 @@ Für $\dfrac{\dd{u_A}}{\dd{t}}$ gilt mit $I_A = \SI{10}{\milli\ampere}$:
 
 \resetlaborsectioncounter
 \laborsubsection{D}{PSPICE-Simulation der Kaskade}
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel=Störabstand,
+                ylabel=BER,
+                grid=major,
+                width=0.9\textwidth,
+                height=0.3\textwidth]
+            \addplot[color=red,mark=x] coordinates {
+                    (0,0.301)
+                    (1,0.273)
+                    (2,0.234)
+                    (3,0.185)
+                    (4,0.149)
+                    (5,0.111)
+                    (6,0.069)
+                    (7,0.04)
+                    (8,0.024)
+                };
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Diagramm aus Koordinaten}
+    \label{fig:2_2_diagramm}
+\end{figure}
 Die Schaltung wurde mit PSPICE simuliert, und mithilfe von Markern die Ausgangsspannung und der Umladestrom bestimmt. Um den Wechselanteil der Ausgangsspannung zu ermitteln, wurde vom angezeigten Wert der Durchschnittswert mittels \textit{AVG} abgezogen.
 
 \begin{figure}[H]
@@ -389,6 +459,24 @@ k3 = Y3eff/Ygeseff
 kges = sqrt(k2^2 + k3^2)
 
 \end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+                xlabel=$x$,
+                ylabel=$Y$,
+                grid=major,
+                xmin=-1.2, xmax=1.2,
+                ymin=-1, ymax=1.5,
+                width=1.0\textwidth,
+                height=0.4\textwidth]
+            \addplot[color=blue] {1*x + 0.1*x^2 - 0.05*x^3};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Darstellung der nichtlinearen Kennlinie}
+    \label{fig:kennlinie}
+\end{figure}
 
 
 \printbibliography
