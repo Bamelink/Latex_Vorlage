@@ -9,7 +9,7 @@ bibliography=totoc,                % Bibliography-Kapitel im Inhaltsverzeichnis 
 listof=totoc,                      % Listof-Kapitel im Inhaltsverzeichnis anzeigen
 parskip=half*,                     % Nur halbe Einzüge vor erste Zeile eines Absatzes, stattdessen Abstand zwischen Absätzen
 ]{scrartcl}                        % Artikel-Klasse (die simpleste) mit KOMA-Skripten (die können ein paar Sachen mehr als Latex nur so)
-                                   % Für größere Sachen (Studienarbeit, Teamprojekt, BA) empfiehlt sich scrrprt statt scrartcl
+% Für größere Sachen (Studienarbeit, Teamprojekt, BA) empfiehlt sich scrrprt statt scrartcl
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Standardpakete %%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[utf8]{inputenc}        % Eingabe von Umlauten im Code
@@ -60,7 +60,7 @@ parskip=half*,                     % Nur halbe Einzüge vor erste Zeile eines Ab
 % chktex-file 17
 
 % Language Tool in vs code auf deutsch stellen (Extension LTex installieren):
-% LTeX: language=de-DE
+%LTeX: language=de-DE
 
 % Einstellen von Seitenabständen und Größen
 \usepackage[paper=a4paper, 
@@ -87,15 +87,19 @@ includehead,includefoot            % Fuß- und Kopfzeile berücksichtigen
 
 % Einstelllungen für das siuntix-Paket
 \sisetup{
-    per-mode=fraction,             % Einheiten als Brüche statt ^-1
-    locale=DE,                     % Malpunkt, statt Kreuz
-    output-decimal-marker={,},     % Komma als Dezimaltrennzeichen
-    group-digits=true,             % Zifferngruppierung an/aus (in 3er Blöcken)
-    group-separator=\text{~},      % Abstand als Trennzeichen für Zifferngruppierung
-    group-minimum-digits=5,        % Ziffern ab minimal 5 Ziffern gesamt gruppieren
-    detect-all,                    % Benutze gleiche Schriftarten wie im Text
-    range-phrase=--,               % Komma in Range
-    range-units=single             % Nur einmal die Einheit bei Range
+	per-mode=fraction,             % Einheiten als Brüche statt ^-1
+	locale=DE,                     % Malpunkt, statt Kreuz
+	output-decimal-marker={,},     % Komma als Dezimaltrennzeichen
+	group-digits=true,             % Zifferngruppierung an/aus (in 3er Blöcken)
+	group-separator=\text{~},      % Abstand als Trennzeichen für Zifferngruppierung
+	group-minimum-digits=5,        % Ziffern ab minimal 5 Ziffern gesamt gruppieren
+	detect-all,                    % Benutze gleiche Schriftarten wie im Text
+	range-phrase=--,               % Komma in Range
+	range-units=single,             % Nur einmal die Einheit bei Range
+	exponent-to-prefix,				% bei eingabe von \SI{1.7e3}{\g} kommt 1,7 kg raus
+	output-complex-root = j,		 % anstelle i j ausgeben
+	complex-root-position = before-number, % stellt das j vor der zahl
+	exponent-product = \cdot
 }                                  
 \DeclareSIUnit\divisor{div.}       % SIunitx: Volt pro Divisor, zB bei Schirmbildern      
 \DeclareSIUnit\voltpeak{Vp}        % Für Vp in SI
@@ -161,10 +165,11 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 \renewcommand{\labelenumi}{\alph{enumi})}
 
 % Ersetzt alle * im Math-Environment durch richtige Malzeichen (cdot). Wenn * für konj. komplex oder ähnliches genutzt werden soll, dann auskommentieren
-\mathcode`\*="8000
-{\catcode`\*\active\gdef*{\cdot}}
+%\mathcode`\*="8000
+%{\catcode`\*\active\gdef*{\cdot}}
 
-% Indizes standardmäßig NICHT kursiv, da es nach DIN-Norm eher in Ausnahmen kursiv ist. Hilfreich für MET- und EMT-Labor
+% Indizes standardmäßig NICHT kursiv, da es nach DIN-Norm eher in Ausnahmen kursiv ist. Hilfreich für MET- und EMT-Labor ausnahme mit \mathit{}
+% bsp : \mathit{A_X}  -> Ausgabe ist A kursiv indizi X nicht kursiv 
 \makeatletter
 \begingroup
 \catcode`\_=\active
@@ -206,47 +211,47 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 \definecolor{listing-string}{HTML}{00999A}
 \definecolor{listing-comment}{HTML}{8E8E8E}
 \lstdefinestyle{eisvogel_listing_style}{
-  language         = java,
-  numbers          = left,
-  xleftmargin      = 2.7em,
-  framexleftmargin = 2.5em,
-  backgroundcolor  = \color{listing-background},
-  basicstyle       = \color{listing-text-color}\linespread{1.0}\small\ttfamily{},
-  breaklines       = true,
-  frame            = single,
-  framesep         = 0.19em,
-  rulecolor        = \color{listing-rule},
-  frameround       = ffff,
-  tabsize          = 4,
-  numberstyle      = \color{listing-numbers},
-  aboveskip        = 1.0em,
-  belowskip        = 0.1em,
-  abovecaptionskip = 0em,
-  belowcaptionskip = 1.0em,
-  keywordstyle     = {\color{listing-keyword}\bfseries},
-  keywordstyle     = {[2]\color{listing-keyword-2}\bfseries},
-  keywordstyle     = {[3]\color{listing-keyword-3}\bfseries\itshape},
-  sensitive        = true,
-  identifierstyle  = \color{listing-identifier},
-  commentstyle     = \color{listing-comment},
-  stringstyle      = \color{listing-string},
-  showstringspaces = false,
-  escapeinside     = {/*@}{@*/}, % Allow LaTeX inside these special comments
-  literate         =
-  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
-  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
-  {à}{{\`a}}1 {è}{{\'e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
-  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
-  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
-  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
-  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
-  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
-  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
-  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
-  {€}{{\EUR}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
-  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
-  {…}{{\ldots}}1 {≥}{{>=}}1 {≤}{{<=}}1 {„}{{\glqq}}1 {“}{{\grqq}}1
-  {”}{{''}}1
+	language         = java,
+	numbers          = left,
+	xleftmargin      = 2.7em,
+	framexleftmargin = 2.5em,
+	backgroundcolor  = \color{listing-background},
+	basicstyle       = \color{listing-text-color}\linespread{1.0}\small\ttfamily{},
+	breaklines       = true,
+	frame            = single,
+	framesep         = 0.19em,
+	rulecolor        = \color{listing-rule},
+	frameround       = ffff,
+	tabsize          = 4,
+	numberstyle      = \color{listing-numbers},
+	aboveskip        = 1.0em,
+	belowskip        = 0.1em,
+	abovecaptionskip = 0em,
+	belowcaptionskip = 1.0em,
+	keywordstyle     = {\color{listing-keyword}\bfseries},
+	keywordstyle     = {[2]\color{listing-keyword-2}\bfseries},
+	keywordstyle     = {[3]\color{listing-keyword-3}\bfseries\itshape},
+	sensitive        = true,
+	identifierstyle  = \color{listing-identifier},
+	commentstyle     = \color{listing-comment},
+	stringstyle      = \color{listing-string},
+	showstringspaces = false,
+	escapeinside     = {/*@}{@*/}, % Allow LaTeX inside these special comments
+	literate         =
+	{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+	{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+	{à}{{\`a}}1 {è}{{\'e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+	{À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+	{ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+	{Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+	{â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+	{Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+	{œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+	{ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+	{€}{{\EUR}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+	{»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+	{…}{{\ldots}}1 {≥}{{>=}}1 {≤}{{<=}}1 {„}{{\glqq}}1 {“}{{\grqq}}1
+	{”}{{''}}1
 }
 \lstset{style=eisvogel_listing_style}
 
@@ -260,9 +265,9 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 
 % Buchstaben vor Subsections für Laborberichte (V2.2, A3.1, usw.) Benutzung mit \laborsubsection{V}{Überschriftstext}
 \newcommand{\laborsubsection}[2] {
-    \renewcommand{\thesubsection}{#1 \thesection.\arabic{subsection}}
-    \subsection{#2}
-    \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+	\renewcommand{\thesubsection}{#1 \thesection.\arabic{subsection}}
+	\subsection{#2}
+	\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 }
 % Einfacher Befehl, um Subsection wieder bei 1 starten, damit Wechsel von V 2.2 zu D 2.1 möglich ist
 \newcommand{\resetlaborsectioncounter}{\setcounter{subsection}{0}}
@@ -274,14 +279,19 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 \newcommand*{\zb}{z.\,B.~\allowbreak}
 \newcommand*{\ua}{u.\,a.~\allowbreak}
 
+%Euler Form (e^j)
+\newcommand{\keulerg}[2][]{\mathrm{e}^{\mathrm{#1j}\,#2^\circ}} % komplexe zahl in euler form mit grad
+\newcommand{\keulerk}[2][]{\mathrm{e}^{\mathrm{#1j}\,\left( #2\right) }} % komplexe zahl in euler form ohne grad mit klammern
+\newcommand{\keuler}[2][]{\mathrm{e}^{\mathrm{#1j}\,#2}} % komplexe zahl in euler form ohne grad ohne klammern 
+
 %%%%%%%%%%%%%%%%%%%%%%%%% Ausfüllen %%%%%%%%%%%%%%%%%%%%%%%%%
 % Eigene Daten, werden dann in PDF übernommen
-\newcommand{\myAuthor}{Max Mustermann, 70458112} 
-\newcommand{\mySecondAuthor}{Max Musterfrau, 70458111} % Einfach leerlassen, wenn es keinen zweiten gibt
-\newcommand{\myGroup}{Gruppe X-24}
-\newcommand{\myTitle}{Versuch 1: Spannungsteiler}
+\newcommand{\myAuthor}{Jan Breuer, 7046 7578} 
+\newcommand{\mySecondAuthor}{Mustafa Lali, 7046 8470} % Einfach leerlassen, wenn es keinen zweiten gibt
+\newcommand{\myGroup}{Gruppe N23}
+\newcommand{\myTitle}{Versuch X}
 \newcommand{\myDate}{\today} % \today kann durch Text ersetzt werden
- 
+
 % Header und Footer setzen mit KOMA
 \clearpairofpagestyles{}
 \ihead{\ifempty{\mySecondAuthor}{\myAuthor}{\myAuthor \\ \mySecondAuthor}} % Erkennt automatisch die Anzahl der Autoren
@@ -293,10 +303,10 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 
 % Metadaten ins generierte PDF
 \hypersetup{
-    pdftitle={\myTitle},
-    pdfauthor={\myAuthor{} \mySecondAuthor},
-    colorlinks=true, % Links farbig darstellen. Diese Zeile entfernen, um stattdessen roten Kästen um Links zu erzeugen, welche dann nicht gedruckt werden.
-    allcolors=ostfalia-blue % Farbe der Links einstellen
+	pdftitle={\myTitle},
+	pdfauthor={\myAuthor{} \mySecondAuthor},
+	colorlinks=true, % Links farbig darstellen. Diese Zeile entfernen, um stattdessen roten Kästen um Links zu erzeugen, welche dann nicht gedruckt werden.
+	allcolors=black % Farbe der Links einstellen
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Tipps für TexStudio %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -310,41 +320,104 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 %%%%%%%%%%%%%%%%%%%%%%%%% ENDE des Headers %%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%% Tipps für Behele: %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	%Mulitplikation ohne Malzeichen:
+	%\, -> halbes Leerzeichen
+
+	%Zahlen in Euler Form (e^j):
+		%\keulerg[-]{150} -> e^-j150°
+		%\keulerg{150} -> e^j150°
+		%\keulerk[-]{150^\circ-20^\circ} -> e^-j(150°-20°)
+		%\keuler[-]{\left( 150^\circ-20^\circ\right) } -> e^-j(150°-20°) Klammern nicht automatisch
+
+	%Zahlen in kartesicher Form:
+		%\SI{8,854 + i4,865}{\volt} -> (8,854 + j4,865)V
+		%\num{2 + i3} -> 2 + j3
+
+	%Komplexe Zahlen
+		%\ul{I}_{12} -> I wird unterstrichen und 12 als Indizeh
+		
+	%Einheiten
+		%\si{\farad} -> F (kleines si verarbeitet nur die Einheit)
+		%\SI{8,854}{\micro\farad} -> 8,854μF
+		%SI{20e-6}{\farad} -> 20*10^-6F
+		
+	%Platzhalter für fehlendes Bild:
+		%\begin{figure}[H]
+		%	\centering
+		%	\missingfigure{TEXT ZUR BESCHREIBUNG WAS FEHLT}
+		%	\captionof{figure}{BILDUNTERSCHRIFT}
+		%	\label{fig:LABEL}
+		%\end{figure}
+		
+	%Auf Kapitel, Gleichungen oder Bilder verweisen:
+		%Dem zu verweisenden Objekt ein label geben mit \label{NAME}
+		%Mittels \autoref{NAME} darauf verweisen
+		
+	%Tabelle zu Latex
+		%https://tableconvert.com/?output=latex
 
 \begin{document}
-\counterwithin{lstlisting}{section} % Muss leider hier stehen und kann nicht in den Header
+	\counterwithin{lstlisting}{section} % Muss leider hier stehen und kann nicht in den Header
+	
+	%\include{titlepage} % Optionale Titlepage titlepage.tex modifizieren 
+	
+	% Sperrvermerk für Studienarbeit/Teamprojekt/BA...
+	%\include{sperrvermerk_erklaerung}
+	
+	
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%% Ab hier Text %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
 
-%\include{titlepage} % Optionale Titlepage und Sperrvermerk für Studienarbeit/Teamprojekt/BA...
-%\include{sperrvermerk_erklaerung}
 
-\section{Vollautomatische Messung des Ladevorganges}
+\section{Einfacher Text Beispiel}
 \laborsubsection{V}{Entwurf der Messschaltung}
-Wir haben uns für eine spannungsrichtige\todo{Hier fehlt noch Text} Messschaltung entschieden, da der $ 2,33 \cdot 9000 $ Widerstand der Spannungsmessung so hoch ist, dass er die Strommessung nur unwesentlich beeinflusst.
+Wir haben uns für eine spannungsrichtige Messschaltung entschieden, da der $ 2,33 \cdot 9000 $ Widerstand der Spannungsmessung so hoch ist, dass er die Strommessung nur unwesentlich beeinflusst.
 
-\section{Differenzier- und Integrierglied}
-\laborsubsection{V}{Herleitung des Mittelwertes einer Rechteckimpulsfolge}
-Die Spannung ist wie folgt definiert. Danach ergibt sich:
+\section{Ein bisschen Mathe}
+\laborsubsection{V}{Spielerei}
+Die Spannung ist wie folgt definiert. Nach \autoref{URI} ergibt sich:
+%%%%%%%%%%%%%% 1 Gleichung
+\begin{equation}
+	U = R \cdot I \label{URI}
+\end{equation}
+
+%%%%%%%%%%%%%% 2 Gleichungen mit Aufsteigender Nummer
 \begin{align}
     \overline{u}_p & = \dfrac{t_{i}}{T} \cdot (U_{PH}-U_{PL}) + U_{PL} \\
                    & = T_{v} \cdot (U_{PH}-U_{PL}) + U_{PL}
 \end{align}
 
+%%%%%%%%%%%%%% 3 Gleichungen mit Gleicher nummer aber a b c
+\begin{subequations}
+	\begin{align}
+		&\ul{I}_{1}\approx 742\ \si{mA} \cdot \keulerg[-]{62,8}\\ \label{eq:I_1}
+		&\ul{I}_{2}\approx 897\ \si{mA} \cdot \keulerk[-]{120^\circ - 60^\circ}\\ \label{eq:I_2}
+		&\ul{I}_{3}\approx 544\ \mathrm{mA} \cdot e^{-\mathrm{j}155,8\degree}
+	\end{align}
+\end{subequations}
+\resetlaborsectioncounter
+\laborsubsection{D}{Komplexe Zahlen und Einheiten}
+Komplexe zahlen\\
+\num{9.99 + 88.8i} \\
+\num{9.99 + i88.8}\\
+$\ul{U}_{12} = \SI{8,854 + i4,865}{\volt}$\\
+$\SI{8,854}{\micro\farad}$
 
-\section{Ladungspumpe und Spannungsvervielfacher}
+
+\section{Quelle Zitieren}
 \laborsubsection{V}{Herleitung einer Formel für Ausgangsspannung}
 Die Kaskade kann in zwei Verdopplungsschaltungen nach \autocite[42]{moeller} aufgeteilt werden. Diese werden dann einzeln betrachtet.
 
-$C_2$ würde mit $U_q$ über $C_1$ auf $2\cdot U_{q}$ aufgeladen werden, wenn die Durchlassspannungen der Dioden nicht vernachlässigt werden könnten. Berücksichtigt man diese aber, verringert sich diese Spannung um die Spannung, die an den beiden Dioden abfällt ($ 2 \cdot U_{F} $). Somit gilt für $U_{C_2}$:
-\begin{equation}
-    U_{C_2} = 2 \cdot U_{q} - 2 \cdot U_{F}
-\end{equation}
-
-$C_4$ in der zweiten Stufe wird nach dem gleichen Prinzip aufgeladen:
-\begin{equation}
-    \ul{U}_{C_4} = 2 \cdot U_{q} - 2 \cdot U_{F}
-\end{equation}
-
-\laborsubsection{V}{Entwurf der Messschaltung mit Oszilloskop}
+\section{Bilder und Tabellen}
+\laborsubsection{V}{Erinnerung zum Nachtragen}
 Hier ist eine Referenz auf die \autoref{psch_diagramm}.
 \begin{figure}[H]
     \centering
@@ -353,7 +426,8 @@ Hier ist eine Referenz auf die \autoref{psch_diagramm}.
     \label{psch_diagramm}
 \end{figure}
 
-\laborsubsection{V}{Vorbereitung zur Ladungspumpe}
+\resetlaborsectioncounter
+\laborsubsection{D}{Bild einfügen}
 \subsubsection{Vorlage Kaskadenschaltung}
 \begin{figure}[H]
     \centering
@@ -362,40 +436,68 @@ Hier ist eine Referenz auf die \autoref{psch_diagramm}.
     \label{kaskadenschaltung}
 \end{figure}
 
-Und nochmal ein einfacher Include mit dem easyfig package. Referenz geht dann automatisch mit dem Dateinamen: \autoref{fig:schaltung}:
-\Figure[caption={4C/4D Kaskade als Vorlage zur Versuchsanordnung}, width=0.8\textwidth,here]{schaltung}
 
-Die Ausgangskapazität $C_A$ wird als Reihenschaltung der Kondensatoren $C_2$ und $C_4$ berechnet:
-\begin{align}
-    C_A = \dfrac{1}{\dfrac{1}{C_2}+\dfrac{1}{C_4}} = \dfrac{1}{\dfrac{1}{\SI{20}{\mu\farad}}+\dfrac{1}{\SI{20}{\mu\farad}}} = \SI{10}{\mu\farad}
-\end{align}
+\laborsubsection{D}{Bilder können auch Nebeneinander}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth} % b steht für am Boden ausrichten, damit beide captions auf gleicher Höhe
+		\includegraphics[width=\textwidth]{psch_kaskade}
+		\subcaption{Simulation der Kaskadenschaltung (Marker für Spannungsmessung)}
+		\label{psch_kaskade}
+	\end{subfigure}
+	\hfill % Um die beiden Figuren so weit wie möglich auseiannder zu machen
+	% \hspace{0.1\textwidth} % Oder: Um einen festen Space zwischen den Figuren zu machen
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{schaltung}
+		\subcaption{4C/4D Kaskade als Vorlage zur Versuchsanordnung}
+		\label{kaskadenschaltung_2}
+	\end{subfigure}
+	\caption{Gesamtdarstellung von irgendwas}
+\end{figure}
 
-Die zu erwartende Ausgangsspannung wurde berechnet:
-\begin{equation}
-    U_{C_2} =  U_{C_4}  = 2 \cdot U_{q} - 2 \cdot U_{F} = \SI{16}{\volt} - 2 \cdot \SI{300}{\milli\volt} = \SI{15,4}{\volt}
-\end{equation}
 
-Für $\dfrac{\dd{u_A}}{\dd{t}}$ gilt mit $I_A = \SI{10}{\milli\ampere}$:
-\begin{equation}
-    \dfrac{\dd{u_A}}{\dd{t}} = \dfrac{I_A}{C_A} = \dfrac{\SI{10}{\milli\ampere}}{\SI{10}{\mu\farad}} = \SI{1000}{\volt\per\second}
-\end{equation}
 
+\resetlaborsectioncounter
+\laborsubsection{A}{Tabelle}
 \begin{table}[H]
     \centering
     \renewcommand{\arraystretch}{2} % Senkrechten Abstand für diese Tabelle erhöhen
     \setlength{\tabcolsep}{1.3em} % Horizontalen Abstand für diese Tabelle erhöhen
-    \begin{tabular}{|c|c|c|c|c|c|}
+ % S in table richtet diese nach kommata aus
+ % dies funktioniert bei starkunsymetreischen zahlen nicht.
+ % dazu kann man mit table-format = A.B die anzahl der erwarteten stellen eingeben dabei steht A für die Anzahl der zahlen vor dem komma und B fur die Anzahl hinter dem komma
+    \begin{tabular}{|c|S[table-format = 2.14]|c|c|c|c|}
         \hline
+        
         $I_A$                  & $R_L $ & $U_A$ & $\dfrac{\dd{u_A}}{\dd{t}}$ (Messung) & $\dfrac{\dd{u_A}}{\dd{t}}$ (Rechnung) & $I_{umlade}$ \\ \hline
-        \SI{1}{\milli\ampere}  &        &       &                                      & \SI{100}{\volt\per\second}            &              \\ \hline
-        \SI{5}{\milli\ampere}  &        &       &                                      & \SI{500}{\volt\per\second}            &              \\ \hline
-        \SI{10}{\milli\ampere} &        &       &                                      & \SI{1000}{\volt\per\second}           &              \\ \hline
+        \SI{1}{\milli\ampere}  &  0,5505     &     \SI{1.7e3}{\g}  &                                      & \SI{100}{\volt\per\second}            &              \\ \hline
+        \SI{5}{\milli\ampere}  &   0,55058545655    &       &                                      & \SI{500}{\volt\per\second}            &             \\ \hline
+        \SI{10}{\milli\ampere} &   % \SI{0,550585}{\ohm}     
+         &       &                                      & \SI{1000}{\volt\per\second}           &              \\ \hline
     \end{tabular}
 \end{table}
 
+
+\begin{table}[H]
+	\centering
+	\caption{The \texttt{s} column processes everything.}
+	\label{tab:s:processing}
+	\begin{tabular}{ss}
+		\toprule
+		{Unit} & \multicolumn{1}{c}{Unit}\\
+		\midrule
+		{\si{m^3}} & \multicolumn{1}{c}{\SI{}{m^3}} \\
+		\kilogram & \kilogram \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+
+
 \resetlaborsectioncounter
-\laborsubsection{D}{PSPICE-Simulation der Kaskade}
-\begin{figure}
+\laborsubsection{D}{Funktion f(x) in Latex}
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}
         \begin{axis}[
@@ -420,25 +522,11 @@ Für $\dfrac{\dd{u_A}}{\dd{t}}$ gilt mit $I_A = \SI{10}{\milli\ampere}$:
     \caption{Diagramm aus Koordinaten}
     \label{fig:2_2_diagramm}
 \end{figure}
-Die Schaltung wurde mit PSPICE simuliert, und mithilfe von Markern die Ausgangsspannung und der Umladestrom bestimmt. Um den Wechselanteil der Ausgangsspannung zu ermitteln, wurde vom angezeigten Wert der Durchschnittswert mittels \textit{AVG} abgezogen.
 
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[b]{0.45\textwidth} % b steht für am Boden ausrichten, damit beide captions auf gleicher Höhe
-        \includegraphics[width=\textwidth]{psch_kaskade}
-        \subcaption{Simulation der Kaskadenschaltung (Marker für Spannungsmessung)}
-        \label{psch_kaskade}
-    \end{subfigure}
-    \hfill % Um die beiden Figuren so weit wie möglich auseiannder zu machen
-    % \hspace{0.1\textwidth} % Oder: Um einen festen Space zwischen den Figuren zu machen
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{schaltung}
-        \subcaption{4C/4D Kaskade als Vorlage zur Versuchsanordnung}
-        \label{kaskadenschaltung_2}
-    \end{subfigure}
-    \caption{Gesamtdarstellung von irgendwas}
-\end{figure}
 
+\newpage
+\section{Programmiersprachen sämtlicher Art}
+\laborsubsection{D}{Ja auch MATLAB}
 \begin{lstlisting}[language=matlab]
 syms x;
 c0 = 0;
@@ -460,28 +548,16 @@ kges = sqrt(k2^2 + k3^2)
 
 \end{lstlisting}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-                xlabel=$x$,
-                ylabel=$Y$,
-                grid=major,
-                xmin=-1.2, xmax=1.2,
-                ymin=-1, ymax=1.5,
-                width=1.0\textwidth,
-                height=0.4\textwidth]
-            \addplot[color=blue] {1*x + 0.1*x^2 - 0.05*x^3};
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Darstellung der nichtlinearen Kennlinie}
-    \label{fig:kennlinie}
-\end{figure}
 
 
+
+\newpage
 \printbibliography
 
 
+
+
+\newpage
 \section*{Geräteliste}
 \begin{table} [H]
     \begin{tabular}{|l|l|}

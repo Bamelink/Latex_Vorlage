@@ -1,4 +1,0 @@
-{
-    "latex-workshop.chktex.enabled": true,
-    "latex-workshop.latex.autoBuild.run": "onSave"
-}
