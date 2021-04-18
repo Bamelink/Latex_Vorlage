@@ -50,7 +50,7 @@ parskip=half*,                     % Nur halbe Einzüge vor erste Zeile eines Ab
 \usepackage{pgfplots}              % Um Diagramme direkt mit Latex zu erstellen
 \usepackage{xifthen}               % Für if else Logic, wird im Header benutzt
 \usepackage{pdfpages}              % Um PDF Dokument hinzuzufügen
-
+\usepackage{makecell}			   % ermögtlicht einfache Zeilenumbrüche in einer tabelle
 %%%%%%%%%%%%%%%%%%%%%%%%% Einstellung für Pakete und LaTeX %%%%%%%%%%%%%%%%%%%%%%%%%
 % Bestimmte Warnung von chktex (Latex linter) deaktivieren:
 % chktex-file 46
@@ -468,19 +468,25 @@ Hier ist eine Referenz auf die \autoref{psch_diagramm}.
 \begin{table}[H]
     \centering
     \renewcommand{\arraystretch}{2} % Senkrechten Abstand für diese Tabelle erhöhen
-    \setlength{\tabcolsep}{1.3em} % Horizontalen Abstand für diese Tabelle erhöhen
+    \setlength{\tabcolsep}{0.3em} % Horizontalen Abstand für diese Tabelle erhöhen
  % S in table richtet diese nach kommata aus
  % dies funktioniert bei starkunsymetreischen zahlen nicht.
  % dazu kann man mit table-format = A.B die anzahl der erwarteten stellen eingeben dabei steht A für die Anzahl der zahlen vor dem komma und B fur die Anzahl hinter dem komma
-    \begin{tabular}{|c|S[table-format = 2.14]|c|c|c|c|}
-        \hline
-        
-        $I_A$                  & $R_L $ & $U_A$ & $\dfrac{\dd{u_A}}{\dd{t}}$ (Messung) & $\dfrac{\dd{u_A}}{\dd{t}}$ (Rechnung) & $I_{umlade}$ \\ \hline
-        \SI{1}{\milli\ampere}  &  0,5505     &     \SI{1.7e3}{\g}  &                                      & \SI{100}{\volt\per\second}            &              \\ \hline
-        \SI{5}{\milli\ampere}  &   0,55058545655    &       &                                      & \SI{500}{\volt\per\second}            &             \\ \hline
-        \SI{10}{\milli\ampere} &   % \SI{0,550585}{\ohm}     
-         &       &                                      & \SI{1000}{\volt\per\second}           &              \\ \hline
-    \end{tabular}
+ % test in der spalte mit {} umklammern bsp {text $P_A$}
+ 
+ % \makecell{ 1. zeile \\ 2. zeile} ermögtlicht einfache zeilenumbrüche in einer zelle
+	\begin{tabular}{|c|c|S[ table-format = 2.3]|S[ table-format = 2.3]|S[ table-format = 1.4]|S[ table-format = 1.4]|}
+	\hline
+	\multicolumn{2}{|c|}{}& {\makecell{Ergebnis\\ der Wirkleistung \\ aus der Simulation \\ in Watt}} & {\makecell{berechnete \\Wirkleistung\\ in Watt}} &{Abweichungen} &{\makecell{Abweichung\\ in \%}} \\ \hline
+	\multirow{3}{*}{\makecell{$L_1$\\ als Bezug}} 
+	&  $P_A$ & 15,500 & 15,4954 & 0,0046 & 0,0297 \\ \cline{2-6} 
+	& $P_B$ & 47,761 & 47,7607 & 0,0003 & 0,0006 \\ \cline{2-6} 
+	& $P_{ges}$ & 63,261 & 63,2561 & 0,0049 & 0,0077 \\ \hline
+		\multirow{3}{*}{\makecell{$L_2$ \\als Bezug}}
+	& $P_A$ & 38,398 & 38,3972 & 0,0008 & 0,0021 \\ \cline{2-6} 
+	& $P_B$ & 24,863 & 24,8624 & 0,0006 & 0,0024 \\ \cline{2-6} 
+	& $P_{ges}$ & 63,261 & 63,2596 & 0,0014 & 0,0022 \\ \hline
+\end{tabular}
 \end{table}
 
 
