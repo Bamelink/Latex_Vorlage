@@ -49,6 +49,7 @@ parskip=half*,                     % Nur halbe Einzüge vor erste Zeile eines Ab
 \usepackage{tcolorbox}             % Für colorboxes (genutzt für Titelseite)
 \usepackage{pgfplots}              % Um Diagramme direkt mit Latex zu erstellen
 \usepackage{xifthen}               % Für if else Logic, wird im Header benutzt
+\usepackage{pdfpages}              % Um PDF Dokument hinzuzufügen
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Einstellung für Pakete und LaTeX %%%%%%%%%%%%%%%%%%%%%%%%%
 % Bestimmte Warnung von chktex (Latex linter) deaktivieren:
@@ -286,9 +287,9 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Ausfüllen %%%%%%%%%%%%%%%%%%%%%%%%%
 % Eigene Daten, werden dann in PDF übernommen
-\newcommand{\myAuthor}{Jan Breuer, 7046 7578} 
-\newcommand{\mySecondAuthor}{Mustafa Lali, 7046 8470} % Einfach leerlassen, wenn es keinen zweiten gibt
-\newcommand{\myGroup}{Gruppe N23}
+\newcommand{\myAuthor}{Max Mustermann, 0123 4567} 
+\newcommand{\mySecondAuthor}{Moni Musterfrau, 0123 4567} % Einfach leerlassen, wenn es keinen zweiten gibt
+\newcommand{\myGroup}{Gruppe X00}
 \newcommand{\myTitle}{Versuch X}
 \newcommand{\myDate}{\today} % \today kann durch Text ersetzt werden
 
@@ -357,6 +358,9 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 		
 	%Tabelle zu Latex
 		%https://tableconvert.com/?output=latex
+		
+	%PDF Dokument einbinden
+		%\includepdf{"NAME DES PDFs"} 
 
 \begin{document}
 	\counterwithin{lstlisting}{section} % Muss leider hier stehen und kann nicht in den Header
@@ -368,7 +372,9 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 	
 	
 	
-	
+%\includepdf{"NAME DES DECKBLATTS"} 
+\tableofcontents
+\newpage
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%% Ab hier Text %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
