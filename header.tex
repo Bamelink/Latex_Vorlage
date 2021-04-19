@@ -170,7 +170,7 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 \makeatother
 
 % Gleichung in Formel umbennen, Harrie mag das lieber
-\renewcommand{\equationautorefname}{Formel}
+\renewcommand{\equationautorefname}{Formel} %% not working
 
 % Für das todonotes package
 \reversemarginpar                  % Randnotizen auf der linken Seite, da dort mehr Platz ist
@@ -290,7 +290,7 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 % Metadaten ins generierte PDF
 \hypersetup{
 	pdftitle={\myTitle},
-	pdfauthor={\myAuthor{} \mySecondAuthor},
+	pdfauthor={\myAuthorA{ mit der Matrikelnummer: }\AutorAMartikelnummer{, } \myAuthorB{ mit der Matrikelnummer: }\AutorBMartikelnummer },
 	colorlinks=true, % Links farbig darstellen. Diese Zeile entfernen, um stattdessen roten Kästen um Links zu erzeugen, welche dann nicht gedruckt werden.
 	allcolors=black % Farbe der Links einstellen
 }
