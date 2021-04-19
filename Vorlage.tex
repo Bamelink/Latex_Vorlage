@@ -12,12 +12,25 @@ parskip=half*,                     % Nur halbe Einzüge vor erste Zeile eines Ab
 % Für größere Sachen (Studienarbeit, Teamprojekt, BA) empfiehlt sich scrrprt statt scrartcl
 
 %%%%%%%%%%%%%%%%%%%%%% Bitte Ausfüllen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\myAuthor}{Max Mustermann, 0123 4567} 
-\newcommand{\mySecondAuthor}{Moni Musterfrau, 0123 4567} % Einfach leerlassen, wenn es keinen zweiten gibt
+\newcommand{\myAuthorA}{Max Mustermann}
+\newcommand{\AutorAMartikelnummer}{0123 4567}
+\newcommand{\myAuthorB}{Moni Musterfrau} % Einfach leerlassen, wenn es keinen zweiten gibt
+\newcommand{\AutorBMartikelnummer}{ 0123 4567} % Einfach leerlassen, wenn es keinen zweiten gibt
 \newcommand{\myGroup}{Gruppe X00}
 \newcommand{\myTitle}{Versuch X}
 
+%%%%%%%%%%%%%%%%%%%%%%% für titelseite anpassen sonst egal %%%%%%%%%%%%%%%
+\newcommand{\myFakultaet}{Elektrotechnik}
+\newcommand{\myTextArt}{Dokumentation zum Teamprojekt} % auch für sperrvermerk gültig
+\newcommand{\myStudiengang}{Elektro- und Informationstechnik im Praxisverbund}
+\newcommand{\myPruefer}{Prof. Dr. Rainer Bermbach}
+\newcommand{\einreichDatum}{DD.MM.YYYY}
+\newcommand{\strasseFackultaet}{Salzdahlumer Str. 46/48} % änderen wenn man oben im campus ist 
+
+%%%%%%%%%%%%%%%%%%%%%%%% für Erklärung anpassen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\myOrt}{Hildesheim}
 \include{header} % header.tex ausgelagert, damit dies in Inkscape addon Tex Text genutzt werden kann
+
 %%%%%%%%%%%%%%%%%%%%%%%%% Tipps für TexStudio %%%%%%%%%%%%%%%%%%%%%%%%%
 % Bessere Rechtschreibkorrektur in TexStudio hinzufügen: https://tex.stackexchange.com/a/282571/148289
 % Tabellen-Autoformatierung mit dem blauen Button oben rechts in Tex-Studio
@@ -70,7 +83,7 @@ parskip=half*,                     % Nur halbe Einzüge vor erste Zeile eines Ab
 \begin{document}
 	\counterwithin{lstlisting}{section} % Muss leider hier stehen und kann nicht in den Header
 	
-	\include{titlepage} % Optionale Titlepage titlepage.tex modifizieren 
+	%\include{titlepage} % Optionale Titlepage titlepage.tex modifizieren 
 	
 	% Sperrvermerk für Studienarbeit/Teamprojekt/BA...
 	%\include{sperrvermerk_erklaerung}
