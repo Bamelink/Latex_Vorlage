@@ -1,0 +1,287 @@
+% !TeX root = Vorlage.tex
+%%%%%%%%%%%%%%%%%%%%%%%%% Standardpakete %%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[utf8]{inputenc}        % Eingabe von Umlauten im Code
+\usepackage[T1]{fontenc}           % Enkodierung von Output, böse Dinge passieren ohne dieses Package
+\usepackage[ngerman]{babel}        % Deutsches Sprachpaket
+\usepackage{scrhack}               % Fixt Probelem mit KOMA-Skript
+\usepackage{mathtools}             % Mathematische Formeln
+\usepackage{microtype}             % Macht irgendwie typographisch besseren Text
+\usepackage{graphicx}              % Hinzufügen von Bildern / PDFs über \includegraphics{bildname}
+\usepackage{caption}               % Erweiterte Captions für Bilder, Formeln, ...
+\usepackage{physics}               % Zusätzliche wissenschaftliche Symbole und Differentialquotient mit \dd{...}
+\usepackage{hyperref}              % Links und Verweise in PDFs
+\usepackage{siunitx}               % Wissenschaftlich korrektes Angeben von Zahlen / Einheiten (wichtig bei Hampe, Siaenen), u.A. Einheiten nicht kursiv
+\usepackage{listings}              % Includen von Code
+\usepackage{xcolor}                % Einfach eigene Farben definen
+\usepackage{url}                   % Includenb von Links mit \url{http://thomas-harriehausen.de}             
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Optionale Pakete, die auch entfernt werden können %%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{lastpage}              % Erlaubt "Seite 2 von x" im Footer, da es die Anzahl Seiten ausgibt
+\usepackage{float}                 % Welches dann in Kombination mit [H] auch wirklich die Gleitumgebung mit dem Bild oder der Tabelle an die richtige Stelle packt, nämlich (H)ere 
+\usepackage{array}                 % Matrizen in Latex
+\usepackage{tabularx}              % Tabellen, die advanced sind
+\usepackage{enumitem}              % Erweiterte Aufzählungen, bespielsweise alternative Aufzählungssymbole 
+\usepackage{gensymb}               % Für Grad-Symbol \degree, Ohm: \ohm und einige mehr
+\usepackage{esvect}                % Vektorpfeile mittels \vv{E}
+\usepackage{icomma}                % Richtgen Abstand beim Dezimaltrennzeichen
+\usepackage[all]{nowidow}          % Vermeidet "widows" (einzelne Zeilen auf nächster Seite die noch zum Absatz gehören)
+\usepackage{chngcntr}              % Ermöglicht Ändern von Nummerierung (Formeln, Bilder), z.B. Zählen innerhalb Kapitel
+\usepackage{subcaption}            % Bilder nebeneinander darstellen
+\usepackage{csquotes}              % Für Zitate und um Warnung von babel zu unterdrücken
+\usepackage[draft]{todonotes}      % \todo[inline]{beispiel}-Befehl, der Kommentare hinzufügt. Ausblenden der Todos durch ersetzen von "draft" durch "disable"
+\usepackage{multirow}              % Für Tabellen: Mehrere Zeilen in einer Spalte miteinander verbinden
+\usepackage{booktabs}              % Für das Excel2LaTeX-Addon, s.u. in Tipps
+\usepackage{bigstrut}              % Für das Excel2LaTeX-Addon, s.u. in Tipps
+\usepackage{cancel}                % Für durchgestrichenen Text (schlechte Messwerte zB) mit \cancel{text}
+\usepackage{easyfig}               % Einfaches includen von Bildern z.B.: \Figure[caption={LOL}, width=\textwidth]{dateiname} (Labels sind automatisch \autoref{fig:dateiname})
+\usepackage{tcolorbox}             % Für colorboxes (genutzt für Titelseite)
+\usepackage{pgfplots}              % Um Diagramme direkt mit Latex zu erstellen
+\usepackage{xifthen}               % Für if else Logic, wird im Header benutzt
+\usepackage{pdfpages}              % Um PDF Dokument hinzuzufügen
+\usepackage{makecell}			   % ermögtlicht einfache Zeilenumbrüche in einer tabelle
+%%%%%%%%%%%%%%%%%%%%%%%%% Einstellung für Pakete und LaTeX %%%%%%%%%%%%%%%%%%%%%%%%%
+% Bestimmte Warnung von chktex (Latex linter) deaktivieren:
+% chktex-file 46
+% chktex-file 2
+% chktex-file 1
+% chktex-file 41
+% chktex-file 10
+% chktex-file 17
+
+% Language Tool in vs code auf deutsch stellen (Extension LTex installieren):
+%LTeX: language=de-DE
+
+% Einstellen von Seitenabständen und Größen
+\usepackage[paper=a4paper, 
+left=25mm,                    
+right=20mm,                   
+top=15mm,                     
+bottom=15mm,                  
+includehead,includefoot            % Fuß- und Kopfzeile berücksichtigen
+]{geometry}
+
+% Schriftart ändern
+\usepackage[space]{erewhon} % Main Schriftart 1 
+%\usepackage{stix2} % Main Schriftart 2
+\usepackage{tgheros} % Serifenlose Schriftart, wird deshalb nur für Überschriften genutzt
+%\usepackage[stix2,vvarbb]{newtxmath} % Nur sinnvoll wenn aktiverte Schrifart keine (schönen) Math-Symbole hat
+% Optional: Serifenlose Schriftart aktivieren um Leute zu triggern
+%\renewcommand{\familydefault}{\sfdefault}
+
+% Automatisch Text wie "Zitat" in deutsche Anführungszeichen umwandeln
+\MakeOuterQuote{"}
+
+% Warnung von pgfplot unterdrücken
+\pgfplotsset{compat=1.7}
+
+% Einstelllungen für das siuntix-Paket
+\sisetup{
+	per-mode=fraction,             % Einheiten als Brüche statt ^-1
+	locale=DE,                     % Malpunkt, statt Kreuz
+	output-decimal-marker={,},     % Komma als Dezimaltrennzeichen
+	group-digits=true,             % Zifferngruppierung an/aus (in 3er Blöcken)
+	group-separator=\text{~},      % Abstand als Trennzeichen für Zifferngruppierung
+	group-minimum-digits=5,        % Ziffern ab minimal 5 Ziffern gesamt gruppieren
+	detect-all,                    % Benutze gleiche Schriftarten wie im Text
+	range-phrase=--,               % Komma in Range
+	range-units=single,             % Nur einmal die Einheit bei Range
+	exponent-to-prefix,				% bei eingabe von \SI{1.7e3}{\g} kommt 1,7 kg raus
+	output-complex-root = j,		 % anstelle i j ausgeben
+	complex-root-position = before-number, % stellt das j vor der zahl
+	exponent-product = \cdot
+}                                  
+\DeclareSIUnit\divisor{div.}       % SIunitx: Volt pro Divisor, zB bei Schirmbildern      
+\DeclareSIUnit\voltpeak{Vp}        % Für Vp in SI
+\DeclareSIUnit\voltppeak{Vpp}      % Für Vpp in SI    
+
+
+% Hinzufügen von Fuß- und Kopfzeilen mit Trennlinie
+\usepackage[
+headsepline,
+footsepline,
+automark
+]{scrlayer-scrpage}   
+
+% circutikz-Paket: "Zeichnen" von Schaltungen im Code
+\usepackage[european,              % Europäischer Style für ciruitikz
+straightvoltages,                  % Gerade Zählpfeile in DE
+americaninductors,                 % Meist wird alte Norm mit Ami-Spulen genutzt
+siunitx,                           % Integration von siunitx aktivieren
+nooldvoltagedirection              % Neue Art für Spannungsrichtung
+]{circuitikz}                      
+
+% Quellen ab x starten
+%\newcommand{\quellenstart}{3} 
+%\DeclareFieldFormat{labelnumber}{
+%    \ifinteger{#1}
+%    {\number\numexpr#1+\quellenstart\relax}
+%    {#1}}
+
+% Zählen innerhalb von Kapitel für Bilder / Gleichungen: <section>.<number>
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+\counterwithin{equation}{section}
+
+% Bilder in diesen Subfoldern müssen den Folder beim includen nicht mehr im Dateinamen angeben
+\graphicspath{{./fig/}{./bilder/}{./images/}{./figs/}}
+
+% Höherer Zeilenabstand, Dirty Harrie will eigentlich 1.2, ist außerdem gut, weil's nach mehr Seiten aussieht
+\linespread{1.15}
+
+% Latex sorgt dafür, dass linebreaks stärker erzwungen werden und nicht Wörter über den Rand hinausragen; siehe https://texfaq.org/FAQ-overfull
+\tolerance=7500
+\pretolerance=200
+
+% Etwas mehr Abstand zwischen den einzelnen aligns
+\addtolength{\jot}{0.4em}
+
+% Macht vertikalen Abstand in Tabellen größer, dieser ist default sehr eng
+\renewcommand{\arraystretch}{1.15} 
+
+% Kein Einschub bei Auflistungen, Geschmackssache
+\setlist[enumerate]{leftmargin=*}
+
+% Aufzählungen mit a) b) statt 1. 2.
+\renewcommand{\labelenumi}{\alph{enumi})}
+
+% Ersetzt alle * im Math-Environment durch richtige Malzeichen (cdot). Wenn * für konj. komplex oder ähnliches genutzt werden soll, dann auskommentieren
+%\mathcode`\*="8000
+%{\catcode`\*\active\gdef*{\cdot}}
+
+% Indizes standardmäßig NICHT kursiv, da es nach DIN-Norm eher in Ausnahmen kursiv ist. Hilfreich für MET- und EMT-Labor ausnahme mit \mathit{}
+% bsp : \mathit{A_X}  -> Ausgabe ist A kursiv indizi X nicht kursiv 
+\makeatletter
+\begingroup
+\catcode`\_=\active
+\protected\gdef_{\@ifnextchar|\subtextit\subtextup }
+\endgroup
+\def\subtextit|#1|{\sb{#1}}
+\def\subtextup#1{\sb{\mathrm{#1}}}
+\AtBeginDocument{\catcode`\_=12 \mathcode`\_=32768}
+\makeatother
+
+% Gleichung in Formel umbennen, Harrie mag das lieber
+\renewcommand{\equationautorefname}{Formel} %% not working
+
+% Für das todonotes package
+\reversemarginpar                  % Randnotizen auf der linken Seite, da dort mehr Platz ist
+\setlength{\marginparwidth}{2cm}   % Randnotizen-Breite festlegen, da das Paket sonst nicht funktioniert 
+
+% Einige vordefinierte Colors
+\definecolor{listingbg}{cmyk}{0,0,0,0.05}
+\definecolor{ostfalia-magenta}{cmyk}{0,1,0,0}
+\definecolor{ostfalia-green}{cmyk}{0.3,0,1,0}
+\definecolor{ostfalia-cyan}{cmyk}{0.78,0,0.32,0}
+\definecolor{ostfalia-orange}{cmyk}{0,0.3,1,0}
+\definecolor{ostfalia-yellow}{cmyk}{0,0.05,1,0}
+\definecolor{ostfalia-violet}{cmyk}{0.86,0.96,0,0}
+\definecolor{ostfalia-wf-blue}{cmyk}{1,0,0,0}
+\definecolor{ostfalia-blue}{cmyk}{1,0.75,0,0.3}
+
+% Eigenes Aussehen für Code-Blöcke definieren, kopiert von 
+% https://github.com/Wandmalfarbe/pandoc-latex-template
+\definecolor{listing-background}{HTML}{F7F7F7}
+\definecolor{listing-rule}{HTML}{B3B2B3}
+\definecolor{listing-numbers}{HTML}{B3B2B3}
+\definecolor{listing-text-color}{HTML}{000000}
+\definecolor{listing-keyword}{HTML}{435489}
+\definecolor{listing-keyword-2}{HTML}{1284CA} % additional keywords
+\definecolor{listing-keyword-3}{HTML}{9137CB} % additional keywords
+\definecolor{listing-identifier}{HTML}{435489}
+\definecolor{listing-string}{HTML}{00999A}
+\definecolor{listing-comment}{HTML}{8E8E8E}
+\lstdefinestyle{eisvogel_listing_style}{
+	language         = java,
+	numbers          = left,
+	xleftmargin      = 2.7em,
+	framexleftmargin = 2.5em,
+	backgroundcolor  = \color{listing-background},
+	basicstyle       = \color{listing-text-color}\linespread{1.0}\small\ttfamily{},
+	breaklines       = true,
+	frame            = single,
+	framesep         = 0.19em,
+	rulecolor        = \color{listing-rule},
+	frameround       = ffff,
+	tabsize          = 4,
+	numberstyle      = \color{listing-numbers},
+	aboveskip        = 1.0em,
+	belowskip        = 0.1em,
+	abovecaptionskip = 0em,
+	belowcaptionskip = 1.0em,
+	keywordstyle     = {\color{listing-keyword}\bfseries},
+	keywordstyle     = {[2]\color{listing-keyword-2}\bfseries},
+	keywordstyle     = {[3]\color{listing-keyword-3}\bfseries\itshape},
+	sensitive        = true,
+	identifierstyle  = \color{listing-identifier},
+	commentstyle     = \color{listing-comment},
+	stringstyle      = \color{listing-string},
+	showstringspaces = false,
+	escapeinside     = {/*@}{@*/}, % Allow LaTeX inside these special comments
+	literate         =
+	{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+	{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+	{à}{{\`a}}1 {è}{{\'e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+	{À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+	{ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+	{Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+	{â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+	{Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+	{œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+	{ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+	{€}{{\EUR}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+	{»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+	{…}{{\ldots}}1 {≥}{{>=}}1 {≤}{{<=}}1 {„}{{\glqq}}1 {“}{{\grqq}}1
+	{”}{{''}}1
+}
+\lstset{style=eisvogel_listing_style}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Eigene Befehle %%%%%%%%%%%%%%%%%%%%%%%%%
+% Kleines Underline, was sich gut für komplexe Zahlen eignet, z.B. \ul{U}_q
+\newcommand{\ul}[1]{\underline{#1\mkern-1.5mu}\mkern 1.5mu}
+% Text hervorheben als code / mono
+\newcommand{\code}[1]{\ttfamily#1\rmfamily} % Beispiel: \code{AC}-Modus
+% \desc{} Command für Text in Math-Mode mit Abstand vor und nach dem Text, nützlich um zB in align etwas beschreiben. z.B.: \desc{eingesetzt ergibt dies:}
+\newcommand{\desc}[1]{{\hspace*{0,7 cm}\text{#1}\hspace*{0,7 cm}}}
+
+% Buchstaben vor Subsections für Laborberichte (V2.2, A3.1, usw.) Benutzung mit \laborsubsection{V}{Überschriftstext}
+\newcommand{\laborsubsection}[2] {
+	\renewcommand{\thesubsection}{#1 \thesection.\arabic{subsection}}
+	\subsection{#2}
+	\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+}
+% Einfacher Befehl, um Subsection wieder bei 1 starten, damit Wechsel von V 2.2 zu D 2.1 möglich ist
+\newcommand{\resetlaborsectioncounter}{\setcounter{subsection}{0}}
+
+% Helfer-Makro, wird weiter unten im Header benutzt.
+\newcommand{\ifempty}[3]{\ifthenelse{\equal{#1}{}}{#2}{#3}}
+
+% Abkürzungen mit korrekten Typographie (achtung Autismus)
+\newcommand*{\zb}{z.\,B.~\allowbreak}
+\newcommand*{\ua}{u.\,a.~\allowbreak}
+
+%Euler Form (e^j)
+\newcommand{\keulerg}[2][]{\mathrm{e}^{\mathrm{#1j}\,#2^\circ}} % komplexe zahl in euler form mit grad
+\newcommand{\keulerk}[2][]{\mathrm{e}^{\mathrm{#1j}\,\left( #2\right) }} % komplexe zahl in euler form ohne grad mit klammern
+\newcommand{\keuler}[2][]{\mathrm{e}^{\mathrm{#1j}\,#2}} % komplexe zahl in euler form ohne grad ohne klammern 
+
+% Eigene Daten, werden dann in PDF übernommen
+\newcommand{\myAuthor}{\myAuthorA, \AutorAMartikelnummer} 
+\newcommand{\mySecondAuthor}{\myAuthorB, \AutorBMartikelnummer}
+\newcommand{\myDate}{\today} % \today kann durch Text ersetzt werden
+
+% Header und Footer setzen mit KOMA
+\clearpairofpagestyles{}
+\ihead{\ifempty{\mySecondAuthor}{\myAuthor}{\myAuthor \\ \mySecondAuthor}} % Erkennt automatisch die Anzahl der Autoren
+\chead{\myGroup}
+\ohead{\myTitle}
+\ifoot{\myDate}
+\ofoot{Seite \thepage{} von \pageref*{LastPage}}
+%\automark{section} % Automatisch die aktuelle Section im Header anzeigen
+
+% Metadaten ins generierte PDF
+\hypersetup{
+	pdftitle={\myTitle},
+	pdfauthor={\myAuthorA{ mit der Matrikelnummer: }\AutorAMartikelnummer{, } \myAuthorB{ mit der Matrikelnummer: }\AutorBMartikelnummer },
+	colorlinks=true, % Links farbig darstellen. Diese Zeile entfernen, um stattdessen roten Kästen um Links zu erzeugen, welche dann nicht gedruckt werden.
+	allcolors=black % Farbe der Links einstellen
+}

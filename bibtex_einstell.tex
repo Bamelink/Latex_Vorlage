@@ -1,0 +1,8 @@
+% Biblatex includen für Zitieren
+\usepackage[style=numeric,         % Zitieren mit [1] statt [Ein05]
+sorting=none,                      % Referenzen sotieren nach Ort des Auftauchen
+backend=bibtex                     % Unterdrückt irgendeine Warnung
+]{biblatex} 
+\addbibresource{sources.bib}       % Optional, fügt sources.bib aus gleichem Verzeichnis hinzu
+\setcounter{biburllcpenalty}{7000} % für lange URLs im Quellverzeichnis
+\setcounter{biburlucpenalty}{8000} %
