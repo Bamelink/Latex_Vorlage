@@ -1,0 +1,82 @@
+
+\input{../header/seiten_einstellungen}
+\input{../bitte_ausfuellen}
+\input{../header/header} % header.tex ausgelagert, damit dies in Inkscape addon Tex Text genutzt werden kann
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Tipps für TexStudio %%%%%%%%%%%%%%%%%%%%%%%%%
+% Bessere Rechtschreibkorrektur in TexStudio hinzufügen: https://tex.stackexchange.com/a/282571/148289
+% Tabellen-Autoformatierung mit dem blauen Button oben rechts in Tex-Studio
+% Mehrere Zeilen gleichzeitig Bearbeiten mit gedrücktem STRG und Ziehen nach unten
+% Word zu Latex Converter: https://www.docx2latex.com/ (Falls der Laborpartner zu inkompetent ist)
+% Latex-Addin für Excel zum Exportieren von Tabellen, sehr gut: https://github.com/krlmlr/Excel2LaTeX/releases/latest (ZIP runterladen, extrahieren und einmal die xla-Datei ausführen)
+% Excel-Addin zum (Batch-)Exportieren von Diagrammen als PNG, auch sehr gut: https://www.xltoolbox.net/de/
+% Wenn VS Code genutzt wird, sollten die Addons Latex Workshop und LTeX installiert werden
+%%%%%%%%%%%%%%%%%%%%%%%%% Tipps für Behele: %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	%Mulitplikation ohne Malzeichen:
+	%\, -> halbes Leerzeichen
+
+	%Zahlen in Euler Form (e^j):
+		%\keulerg[-]{150} -> e^-j150°
+		%\keulerg{150} -> e^j150°
+		%\keulerk[-]{150^\circ-20^\circ} -> e^-j(150°-20°)
+		%\keuler[-]{\left( 150^\circ-20^\circ\right) } -> e^-j(150°-20°) Klammern nicht automatisch
+
+	%Zahlen in kartesicher Form:
+		%\SI{8,854 + i4,865}{\volt} -> (8,854 + j4,865)V
+		%\num{2 + i3} -> 2 + j3
+
+	%Komplexe Zahlen
+		%\ul{I}_{12} -> I wird unterstrichen und 12 als Indizeh
+		
+	%Einheiten
+		%\si{\farad} -> F (kleines si verarbeitet nur die Einheit)
+		%\SI{8,854}{\micro\farad} -> 8,854μF
+		%SI{20e-6}{\farad} -> 20*10^-6F
+		
+	%Platzhalter für fehlendes Bild:
+		%\begin{figure}[H]
+		%	\centering
+		%	\missingfigure{TEXT ZUR BESCHREIBUNG WAS FEHLT}
+		%	\captionof{figure}{BILDUNTERSCHRIFT}
+		%	\label{fig:LABEL}
+		%\end{figure}
+		
+	%Auf Kapitel, Gleichungen oder Bilder verweisen:
+		%Dem zu verweisenden Objekt ein label geben mit \label{NAME}
+		%Mittels \autoref{NAME} darauf verweisen
+		
+	%Tabelle zu Latex
+		%https://tableconvert.com/?output=latex
+		
+	%PDF Dokument einbinden
+		%\includepdf{"NAME DES PDFs"} 
+
+\begin{document}
+	\counterwithin{lstlisting}{section} % Muss leider hier stehen und kann nicht in den Header
+	
+	%\include{titlepage} % Optionale Titlepage titlepage.tex modifizieren 
+	
+	% Sperrvermerk für Studienarbeit/Teamprojekt/BA...
+	%\include{sperrvermerk_erklaerung}
+	
+	
+	
+%\includepdf{"NAME DES DECKBLATTS"} 
+
+
+
+\tableofcontents
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% Ab hier Text %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../Inhalt1/inhalt1.tex}
+\input{../Inhalt2/inhalt2.tex}
+
+
+\end{document}
