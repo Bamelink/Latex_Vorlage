@@ -1,4 +1,6 @@
 % !TeX root = Vorlage.tex
+% verlinkungen hier gehen von der Vorlage.tex aus !!
+%d.h der herader denkt er ist im selben verzeichnis wie Vorlage.tex
 %%%%%%%%%%%%%%%%%%%%%%%%% Standardpakete %%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[utf8]{inputenc}        % Eingabe von Umlauten im Code
 \usepackage[T1]{fontenc}           % Enkodierung von Output, böse Dinge passieren ohne dieses Package
@@ -94,6 +96,14 @@ includehead,includefoot            % Fuß- und Kopfzeile berücksichtigen
 \DeclareSIUnit\voltpeak{Vp}        % Für Vp in SI
 \DeclareSIUnit\voltppeak{Vpp}      % Für Vpp in SI    
 
+% Biblatex includen für Zitieren
+\usepackage[style=numeric,         % Zitieren mit [1] statt [Ein05]
+sorting=none,                      % Referenzen sotieren nach Ort des Auftauchen
+backend=bibtex                     % Unterdrückt irgendeine Warnung
+]{biblatex} 
+\addbibresource{sources.bib}       % Optional, fügt sources.bib aus gleichem Verzeichnis hinzu
+\setcounter{biburllcpenalty}{7000} % für lange URLs im Quellverzeichnis
+\setcounter{biburlucpenalty}{8000} %
 
 % Hinzufügen von Fuß- und Kopfzeilen mit Trennlinie
 \usepackage[
