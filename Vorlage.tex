@@ -86,7 +86,7 @@ includehead,includefoot            % Fuß- und Kopfzeile berücksichtigen
 % Warnung von pgfplot unterdrücken
 \pgfplotsset{compat=1.7}
 
-% Einstelllungen für das siuntix-Paket
+% Einstelllungen für das siuntix-Paket % mehr unter https://ctan.space-pro.be/tex-archive/macros/latex/contrib/siunitx/siunitx.pdf
 \sisetup{
 	per-mode=fraction,             % Einheiten als Brüche statt ^-1
 	locale=DE,                     % Malpunkt, statt Kreuz
@@ -97,11 +97,13 @@ includehead,includefoot            % Fuß- und Kopfzeile berücksichtigen
 	detect-all,                    % Benutze gleiche Schriftarten wie im Text
 	range-phrase=--,               % Komma in Range
 	range-units=single,             % Nur einmal die Einheit bei Range
-	exponent-to-prefix,				% bei eingabe von \SI{1.7e3}{\g} kommt 1,7 kg raus
+	%	exponent-to-prefix = true,	% bei eingabe von \SI{1.7e3}{\g} kommt 1,7 kg raus 
+	exponent-to-prefix = false,		% bei eingabe von \SI{1.7e3}{\g} kommt 1,7\cdot 10^3 g raus 
+	scientific-notation = engineering, % nimmt die exponenten nach der Ingienuerschreibwese
 	output-complex-root = j,		 % anstelle i j ausgeben
 	complex-root-position = before-number, % stellt das j vor der zahl
 	exponent-product = \cdot
-}                                  
+}                                        
 \DeclareSIUnit\divisor{div.}       % SIunitx: Volt pro Divisor, zB bei Schirmbildern      
 \DeclareSIUnit\voltpeak{Vp}        % Für Vp in SI
 \DeclareSIUnit\voltppeak{Vpp}      % Für Vpp in SI    
@@ -322,7 +324,9 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Tipps für Behele: %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+    % erweitere Sachsen für \SI{}{} \si{}  \num{}usw unter https://ctan.space-pro.be/tex-archive/macros/latex/contrib/siunitx/siunitx.pdf
+    % wenn jemand keine Hobbys hat kann er mal eine tabelle erstellen die ein paar nützliche Bsb zeigt
+    
 	%Mulitplikation ohne Malzeichen:
 	%\, -> halbes Leerzeichen
 
