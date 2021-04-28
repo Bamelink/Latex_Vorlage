@@ -269,7 +269,7 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 % Buchstaben vor Subsections für Laborberichte (V2.2, A3.1, usw.) Benutzung mit \laborsubsection{V}{Überschriftstext}
 \newcommand{\laborsubsection}[2] {
 	\renewcommand{\thesubsection}{#1 \thesection.\arabic{subsection}}
-	\subsection{#2}
+	\subsection{{\boldmath #2}}
 	\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 }
 % Einfacher Befehl, um Subsection wieder bei 1 starten, damit Wechsel von V 2.2 zu D 2.1 möglich ist
