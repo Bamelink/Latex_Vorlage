@@ -97,9 +97,11 @@ includehead,includefoot            % Fuß- und Kopfzeile berücksichtigen
 	detect-all,                    % Benutze gleiche Schriftarten wie im Text
 	range-phrase=--,               % Komma in Range
 	range-units=single,             % Nur einmal die Einheit bei Range
-	%	exponent-to-prefix = true,	% bei eingabe von \SI{1.7e3}{\g} kommt 1,7 kg raus 
+	exponent-to-prefix = true,	% bei eingabe von \SI{1.7e3}{\g} kommt 1,7 kg raus 
 	exponent-to-prefix = false,		% bei eingabe von \SI{1.7e3}{\g} kommt 1,7\cdot 10^3 g raus 
-	scientific-notation = engineering, % nimmt die exponenten nach der Ingienuerschreibwese
+	
+%	scientific-notation = engineering, % nimmt die exponenten nach der Ingienuerschreibwese ! Achtung bei der S umgebung der Tablle mit table-format !
+	scientific-notation = false,
 	output-complex-root = j,		 % anstelle i j ausgeben
 	complex-root-position = before-number, % stellt das j vor der zahl
 	exponent-product = \cdot
@@ -479,7 +481,7 @@ Hier ist eine Referenz auf die \autoref{psch_diagramm}.
  % test in der spalte mit {} umklammern bsp {text $P_A$}
  
  % \makecell{ 1. zeile \\ 2. zeile} ermögtlicht einfache zeilenumbrüche in einer zelle
-	\begin{tabular}{|c|c|S[ table-format = 2.3]|S[ table-format = 2.3]|S[ table-format = 1.4]|S[ table-format = 1.4]|}
+	\begin{tabular}{|c|c|S[ table-format = 2.3]|S[ table-format = 2.3]|S[ table-format = 1.4,	scientific-notation = false]|S[ table-format = 1.4,	scientific-notation = false]|}
 	\hline
 	\multicolumn{2}{|c|}{}& {\makecell{Ergebnis\\ der Wirkleistung \\ aus der Simulation \\ in Watt}} & {\makecell{berechnete \\Wirkleistung\\ in Watt}} &{Abweichungen} &{\makecell{Abweichung\\ in \%}} \\ \hline
 	\multirow{3}{*}{\makecell{$L_1$\\ als Bezug}} 
