@@ -1,9 +1,8 @@
 
 \input{../header/seiten_einstellungen}
 \input{../bitte_ausfuellen}
-\input{../header/header} % header.tex ausgelagert, damit dies in Inkscape addon Tex Text genutzt werden kann
-
-
+\input{../header/header_teil1} % header_teil1.tex ausgelagert, damit dies in Inkscape addon Tex Text genutzt werden kann
+\input{../header/header_teil2} % header_teil2.tex ausgelagert, damit header_teil1.tex in Inkscape addon Tex Text genutzt werden kann
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Tipps für TexStudio %%%%%%%%%%%%%%%%%%%%%%%%%
 % Bessere Rechtschreibkorrektur in TexStudio hinzufügen: https://tex.stackexchange.com/a/282571/148289
@@ -58,10 +57,10 @@
 	\counterwithin{lstlisting}{section} % Muss leider hier stehen und kann nicht in den Header
 	
 	%\input{../Zusatz/titlepage} % Optionale Titlepage titlepage.tex modifizieren 
-
+	
 	% Sperrvermerk für Studienarbeit/Teamprojekt/BA...
 	%\input{../Zusatz/sperrvermerk_erklaerung
-
+	
 	
 	
 	
@@ -76,10 +75,9 @@
 	%%%%%%%%%%%%%%%%%%%%% Ab hier Text %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%\input{../Inhalt1/inhalt1.tex}
 	{\LARGE Nur Inhalt2}
-	
-%	\input{../Inhalt1/inhalt1.tex}
-	\input{inhalt2.tex}
-	
+	\input{../Inhalt2/inhalt2.tex}
+	\printbibliography
 	
 \end{document}
