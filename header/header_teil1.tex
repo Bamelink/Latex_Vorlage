@@ -234,7 +234,11 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 \newcommand{\keulerg}[2][]{\mathrm{e}^{\mathrm{#1j}\,#2^\circ}} % komplexe zahl in euler form mit grad
 \newcommand{\keulerk}[2][]{\mathrm{e}^{\mathrm{#1j}\,\left( #2\right) }} % komplexe zahl in euler form ohne grad mit klammern
 \newcommand{\keuler}[2][]{\mathrm{e}^{\mathrm{#1j}\,#2}} % komplexe zahl in euler form ohne grad ohne klammern 
-
+\newcommand{\dreiVec}[3]{\left( \begin{matrix}
+		#1\\
+		#2 \\
+		#3 \\
+	\end{matrix}\right) } % einfacher 3er vector mit einem Befehl \dreiVec{1}{2}{3} !nur in mathe umgebnungen ! 
 % Eigene Daten, werden dann in PDF übernommen
 \newcommand{\myAuthor}{\myAuthorA, \AutorAMartikelnummer} 
 \newcommand{\mySecondAuthor}{\myAuthorB, \AutorBMartikelnummer}
