@@ -84,11 +84,18 @@ includehead,includefoot            % Fuß- und Kopfzeile berücksichtigen
 	detect-all,                    % Benutze gleiche Schriftarten wie im Text
 	range-phrase=--,               % Komma in Range
 	range-units=single,             % Nur einmal die Einheit bei Range
-	exponent-to-prefix,				% bei eingabe von \SI{1.7e3}{\g} kommt 1,7 kg raus
+	exponent-to-prefix = true,	% bei eingabe von \SI{1.7e3}{\g} kommt 1,7 kg raus 
+	%	exponent-to-prefix = false,		% bei eingabe von \SI{1.7e3}{\g} kommt 1,7\cdot 10^3 g raus 	
+	%	scientific-notation = engineering, % nimmt die exponenten nach der Ingienuerschreibwese ! Achtung bei der S umgebung der Tablle mit table-format !
+	scientific-notation = false,
 	output-complex-root = j,		 % anstelle i j ausgeben
 	complex-root-position = before-number, % stellt das j vor der zahl
 	exponent-product = \cdot
-}                                  
+} 
+
+%Die Umgebung von TableS is gleich zu Table, allerdings wird scientific-notation ausgeschaltet innerhalb der Umgebung. Falls Fehler wie: "Package siunitx Error: No space reserved for an exponent" immer tableS statt table verwenden!
+\newenvironment{tableS}{\sisetup{scientific-notation = false}  \begin{table}}{\end{table}\sisetup{scientific-notation = engineering} }
+                                 
 \DeclareSIUnit\divisor{div.}       % SIunitx: Volt pro Divisor, zB bei Schirmbildern      
 \DeclareSIUnit\voltpeak{Vp}        % Für Vp in SI
 \DeclareSIUnit\voltppeak{Vpp}      % Für Vpp in SI    
@@ -98,7 +105,8 @@ includehead,includefoot            % Fuß- und Kopfzeile berücksichtigen
 sorting=none,                      % Referenzen sotieren nach Ort des Auftauchen
 backend=bibtex                     % Unterdrückt irgendeine Warnung
 ]{biblatex} 
-\addbibresource{../sources.bib}       % Optional, fügt sources.bib aus gleichem Verzeichnis hinzu
+%\addbibresource{../sources.bib}       % Optional, fügt sources.bib aus gleichem Verzeichnis hinzu
+\addbibresource{../../sources.bib}       % Optional, fügt sources.bib aus gleichem Verzeichnis hinzu
 \setcounter{biburllcpenalty}{7000} % für lange URLs im Quellverzeichnis
 \setcounter{biburlucpenalty}{8000} %
 
@@ -130,7 +138,7 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 \counterwithin{equation}{section}
 
 % Bilder in diesen Subfoldern müssen den Folder beim includen nicht mehr im Dateinamen angeben
-\graphicspath{{../fig/}{../bilder/}{../images/}{../figs/}}
+\graphicspath{{../fig/}{../bilder/}{../Bilder/}{../images/}{../figs/}{../../fig/}{../../bilder/}{../../Bilder/}{../../images/}{../../figs/}}
 
 % Höherer Zeilenabstand, Dirty Harrie will eigentlich 1.2, ist außerdem gut, weil's nach mehr Seiten aussieht
 \linespread{1.15}
@@ -226,7 +234,11 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 \newcommand{\keulerg}[2][]{\mathrm{e}^{\mathrm{#1j}\,#2^\circ}} % komplexe zahl in euler form mit grad
 \newcommand{\keulerk}[2][]{\mathrm{e}^{\mathrm{#1j}\,\left( #2\right) }} % komplexe zahl in euler form ohne grad mit klammern
 \newcommand{\keuler}[2][]{\mathrm{e}^{\mathrm{#1j}\,#2}} % komplexe zahl in euler form ohne grad ohne klammern 
-
+\newcommand{\dreiVec}[3]{\left( \begin{matrix}
+		#1\\
+		#2 \\
+		#3 \\
+	\end{matrix}\right) } % einfacher 3er vector mit einem Befehl \dreiVec{1}{2}{3} !nur in mathe umgebnungen ! 
 % Eigene Daten, werden dann in PDF übernommen
 \newcommand{\myAuthor}{\myAuthorA, \AutorAMartikelnummer} 
 \newcommand{\mySecondAuthor}{\myAuthorB, \AutorBMartikelnummer}

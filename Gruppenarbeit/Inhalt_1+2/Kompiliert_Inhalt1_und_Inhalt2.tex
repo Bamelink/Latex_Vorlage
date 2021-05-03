@@ -1,9 +1,4 @@
-
-\input{../header/seiten_einstellungen}
-\input{../bitte_ausfuellen}
-\input{../header/header_teil1} % header_teil1.tex ausgelagert, damit dies in Inkscape addon Tex Text genutzt werden kann
-\input{../header/header_teil2} % header_teil2.tex ausgelagert, damit header_teil1.tex in Inkscape addon Tex Text genutzt werden kann
-
+\input{../../header/header_gruppenarbeit}
 %%%%%%%%%%%%%%%%%%%%%%%%% Tipps für TexStudio %%%%%%%%%%%%%%%%%%%%%%%%%
 % Bessere Rechtschreibkorrektur in TexStudio hinzufügen: https://tex.stackexchange.com/a/282571/148289
 % Tabellen-Autoformatierung mit dem blauen Button oben rechts in Tex-Studio
@@ -56,15 +51,15 @@
 \begin{document}
 	\counterwithin{lstlisting}{section} % Muss leider hier stehen und kann nicht in den Header
 	
-	%\input{../Zusatz/titlepage} % Optionale Titlepage titlepage.tex modifizieren 
+	%\input{../../Zusatz/titlepage} % Optionale Titlepage titlepage.tex modifizieren 
 
 	% Sperrvermerk für Studienarbeit/Teamprojekt/BA...
-	%\input{../Zusatz/sperrvermerk_erklaerung
+	%\input{../../Zusatz/sperrvermerk_erklaerung
 
 	
 	
 	
-%\includepdf{"NAME DES DECKBLATTS"} 
+	%\includepdf{"PFAD/NAME DES DECKBLATTS"}
 
 
 
@@ -75,7 +70,9 @@
 %%%%%%%%%%%%%%%%%%%%% Ab hier Text %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%{\LARGE Nur Inhalt 1}
 \input{../Inhalt1/inhalt1.tex}
+%{\LARGE Nur Inhalt 2}
 \input{../Inhalt2/inhalt2.tex}
 \printbibliography
 
