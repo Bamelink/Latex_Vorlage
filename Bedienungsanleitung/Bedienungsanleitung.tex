@@ -395,6 +395,52 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 	Als Editor können viele IDEs genutzt werden. Wir persönlich nutzen TeXstudio. Visual Studio Code ist bspw. auch möglich. Google zeigt einem diverse Editor. Möglicherweise bezieht sich allerdings diese Anleitung auf die Nutzung von TeXstudio. 
 	
 	
+	
+	\newpage
+	\section{Bessere Rechtschreibprüfung}
+	\begin{enumerate}
+		\item Herunterladen der Datei \url{https://mega.nz/file/IwoyTYIZ#oqr5qIaVe3RZAFHnLinVUpE2sULYTURTFGSVeY4sCxA}\newline
+		\item[1] Java Installieren
+		\item[2] Languarge toool zip entpacken und dateien in einem geeigeneten ord verscheiben (z.B. Programme )
+		\item[3] languagetool.jar mit doppelklick starten
+		\item[4-7] Textprüfung $\rightarrow$ Optionen $\rightarrow$ Allgemein $\rightarrow$ Haken bei "Als Server laufen auf Port" 8081
+		\item[8] OK drücken und Languarge-tools schließen
+		\item[9] TexStudio Starten
+		\item[10-12] Optionen $\rightarrow$ TeXstudio konfigurieren... $\rightarrow$ Sprache Prüfen
+		\item[13] als server URL http://localhost:8081/ einfügen
+		\item[14] prüfen ob der harken aktiviert ist
+		\item[15] pfad zur java.exe  reinschreiben oder suchen mit 15.)a
+		\item[16] pfad zu Languarge-tools +languagetool-server.jar eingeben
+		\item[17] textsudio neutsarten
+		\item[18] max 2min warten bis das zeichen unten links "leuchtet"
+	\end{enumerate}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\linewidth]{figs/Rechtschreibprüfung_1.png}
+		\caption{}
+		\label{fig:rechtschreibprufung1}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figs/Rechtschreibprüfung_2.png}
+		\caption{}
+		\label{fig:rechtschreibprufung2}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figs/Rechtschreibprüfung_3.png}
+		\caption{}
+		\label{fig:rechtschreibprufung3}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figs/Rechtschreibprüfung_4.png}
+		\caption{}
+		\label{fig:rechtschreibprufung4}
+	\end{figure}
+
+
+	
 	\newpage
 	\section{Benutzung dieser Vorlage}
 	\subsection{Vorbereitung}
@@ -463,48 +509,53 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 	Bibid ist der Name der Quelle aus der "sources.bib", also die verwendete Quelle.\newline
 	Als postnote kann zum Beispiel S22-25 eingetragen werden.
 	
+	
+	
 	\newpage
-	\section{Bessere Rechtschreibprüfung}
-	\begin{enumerate}
-		\item Herunterladen der Datei \url{https://mega.nz/file/IwoyTYIZ#oqr5qIaVe3RZAFHnLinVUpE2sULYTURTFGSVeY4sCxA}\newline
-		\item[1] Java Installieren
-		\item[2] Languarge toool zip entpacken und dateien in einem geeigeneten ord verscheiben (z.B. Programme )
-		\item[3] languagetool.jar mit doppelklick starten
-		\item[4-7] Textprüfung $\rightarrow$ Optionen $\rightarrow$ Allgemein $\rightarrow$ Haken bei "Als Server laufen auf Port" 8081
-		\item[8] OK drücken und Languarge-tools schließen
-		\item[9] TexStudio Starten
-		\item[10-12] Optionen $\rightarrow$ TeXstudio konfigurieren... $\rightarrow$ Sprache Prüfen
-		\item[13] als server URL http://localhost:8081/ einfügen
-		\item[14] prüfen ob der harken aktiviert ist
-		\item[15] pfad zur java.exe  reinschreiben oder suchen mit 15.)a
-		\item[16] pfad zu Languarge-tools +languagetool-server.jar eingeben
-		\item[17] textsudio neutsarten
-		\item[18] max 2min warten bis das zeichen unten links "leuchtet"
-	\end{enumerate}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.75\linewidth]{figs/Rechtschreibprüfung_1.png}
-		\caption{}
-		\label{fig:rechtschreibprufung1}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.5\linewidth]{figs/Rechtschreibprüfung_2.png}
-		\caption{}
-		\label{fig:rechtschreibprufung2}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.6\linewidth]{figs/Rechtschreibprüfung_3.png}
-		\caption{}
-		\label{fig:rechtschreibprufung3}
-	\end{figure}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.8\linewidth]{figs/Rechtschreibprüfung_4.png}
-		\caption{}
-		\label{fig:rechtschreibprufung4}
-	\end{figure}
+	\section{Inkscape Latex}
+	
+	
+	
+	
+	\newpage
+	\section{Bilder}
+	\subsection{Bild einfügen}
+	Um ein Bild einzufügen kann dies händisch mit nachfolgendem geschehen oder in TeXstudio $\rightarrow$ "Assistenten" $\rightarrow$ "Grafik Einfügen" als Hilfe genutzt werden.
+	\begin{verbatim}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{ORDNER/BILDNAME.DATEIFORMAT}
+			\caption{BILDUNTERSCHRIFT}
+			\label{fig:LabelName}
+		\end{figure}
+	\end{verbatim}
+	Das \text{[H]} steht für "here", das Bild wird also genau an der Stelle eingefügt, wo auch der Code in Latex steht. Ansonsten erscheint das Bild immer ganz oben im PDF.\newline
+	"Centering" ist um das Bild zu zentrieren.\newline
+	"includegraphics" importiert das Bild. Dabei ist darauf zu achten, dass der Pfad, Dateiname und das Dateiformat richtig eingetragen sind. In dieser Vorlage sind Ordner wie "figs" und "Bilder" bereits Standardpfade und müssen nicht angegeben werden.\newline
+	Die Größe kann mit "width=" verändert werden.\newline
+	"Caption" ist die Bildunterschrift, also der Text unter dem Bild, welcher im PDF erscheint.
+	"Label" sollte bereits bekannt sein. Mit diesem Namen kann auf das Bild referenziert werden. Zur Kennzeichnung ist es üblich, dass Labels für Bilder mit "fig:" beginnen und dahinter der Name kommt.
+	\subsection{Platzhalter für nachträgliche Bilder}
+	Platzhalter dienen dazu, noch nicht fertige/vorhandene Bilder mit einem Achtungszeichen zu integrieren. So hat man das Label, kann damit weiterarbeiten und denkt später daran, das Bild noch hinzuzufügen und muss nur eine Kleinigkeit ändern.
+	\begin{verbatim}
+		\begin{figure}[H]
+			\centering
+			\missingfigure{TEXT ZUR BESCHREIBUNG WAS FEHLT}
+			\captionof{figure}{BILDUNTERSCHRIFT}
+			\label{fig:LABEL}
+		\end{figure}
+	\end{verbatim}
+	In "missingfigure" kann ein kleiner Text zur Beschreibung was genau Fehlt. Dieser erscheint auch im PDF.
+
+
+
+	
+	
+	\newpage
+	\section{Einfache Tabellen}
+
+
+
 
 	
 	\newpage
@@ -550,40 +601,15 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 	\subsection{Sonderzeichen}
 	
 	
-	\newpage
-	\section{Bilder}
-	\subsection{Bild einfügen}
-	Um ein Bild einzufügen kann dies händisch mit nachfolgendem geschehen oder in TeXstudio $\rightarrow$ "Assistenten" $\rightarrow$ "Grafik Einfügen" als Hilfe genutzt werden.
-	\begin{verbatim}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=0.7\linewidth]{ORDNER/BILDNAME.DATEIFORMAT}
-			\caption{BILDUNTERSCHRIFT}
-			\label{fig:LabelName}
-		\end{figure}
-	\end{verbatim}
-	Das \text{[H]} steht für "here", das Bild wird also genau an der Stelle eingefügt, wo auch der Code in Latex steht. Ansonsten erscheint das Bild immer ganz oben im PDF.\newline
-	"Centering" ist um das Bild zu zentrieren.\newline
-	"includegraphics" importiert das Bild. Dabei ist darauf zu achten, dass der Pfad, Dateiname und das Dateiformat richtig eingetragen sind. In dieser Vorlage sind Ordner wie "figs" und "Bilder" bereits Standardpfade und müssen nicht angegeben werden.\newline
-	Die Größe kann mit "width=" verändert werden.\newline
-	"Caption" ist die Bildunterschrift, also der Text unter dem Bild, welcher im PDF erscheint.
-	"Label" sollte bereits bekannt sein. Mit diesem Namen kann auf das Bild referenziert werden. Zur Kennzeichnung ist es üblich, dass Labels für Bilder mit "fig:" beginnen und dahinter der Name kommt.
-	\subsection{Platzhalter für nachträgliche Bilder}
-	Platzhalter dienen dazu, noch nicht fertige/vorhandene Bilder mit einem Achtungszeichen zu integrieren. So hat man das Label, kann damit weiterarbeiten und denkt später daran, das Bild noch hinzuzufügen und muss nur eine Kleinigkeit ändern.
-	\begin{verbatim}
-		\begin{figure}[H]
-			\centering
-			\missingfigure{TEXT ZUR BESCHREIBUNG WAS FEHLT}
-			\captionof{figure}{BILDUNTERSCHRIFT}
-			\label{fig:LABEL}
-		\end{figure}
-	\end{verbatim}
-	In "missingfigure" kann ein kleiner Text zur Beschreibung was genau Fehlt. Dieser erscheint auch im PDF.
-	\newpage
-	\section{Tabellen}
-	\subsection{Einfache Tabellen}
 	
-	\subsection{Komplexere Tabellen}
+	\newpage
+	\section{SI}
+	
+	
+	
+	
+	\newpage
+	\section{Komplexere Tabellen}
 	\begin{verbatim}
 		\begin{table}[H]
 			\centering
@@ -647,6 +673,18 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 			& $P_{ges}$ & 63,261 & 63,2596 & 0,0014 & 0,0022 \\ \hline
 		\end{tabular}
 	\end{table}
+
+
+
+
+	\newpage
+	\section{Programmiercode}
+	
+	
+	
+	
+	\newpage
+	\section{Fehlermeldungen}
 	
 	
 	\newpage
