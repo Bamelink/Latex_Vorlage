@@ -239,9 +239,13 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 		#2 \\
 		#3 \\
 	\end{matrix}\right) } % einfacher 3er vector mit einem Befehl \dreiVec{1}{2}{3} !nur in mathe umgebnungen ! 
+
+\newcommand{\fancypara}[2][0.5ex]{\paragraph{{\boldmath #2 }} $ $ \\[#1]}   % pragraph welcher alles dick schreibt und man den Abstand zur neuen Zeile einstellen kann (standart abstand ist 0.5em).
+\newcommand{\fancyparaLabel}[3][0.5ex]{ \paragraph{{\boldmath #2 }} \label{#3} $ $  \\[#1] } % das selbe die bei \fancypara jedoch diesmal mit label funktion.
+
+
 % Eigene Daten, werden dann in PDF übernommen
 \newcommand{\myAuthor}{\myAuthorA, \AutorAMartikelnummer} 
 \newcommand{\mySecondAuthor}{\myAuthorB, \AutorBMartikelnummer}
 \newcommand{\myDate}{\today} % \today kann durch Text ersetzt werden
-
 
