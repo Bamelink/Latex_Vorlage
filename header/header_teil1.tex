@@ -217,12 +217,22 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 \newcommand{\desc}[1]{{\hspace*{0,7 cm}\text{#1}\hspace*{0,7 cm}}}
 
 \newcommand{\paraNumOFF}{
-	\renewcommand{\theparagraph}{\thesection.\arabic{subsection} \alph{paragraph})}
-} % aufzählung im paragraph mit 1.2 a). 1.2 b). und 1.2 c).
+	\renewcommand{\theparagraph}{\thesection.\arabic{subsection}.\arabic{subsubsection} \alph{paragraph})}
+} % aufzählung im paragraph mit 1.1.2 a). 1.1.2 b). und 1.1.2 c).
 
 \newcommand{\paraNumON}{
-	\renewcommand{\theparagraph}{\thesection.\arabic{subsection}.\arabic{paragraph}}
-} % aufzählung bei paragraph mit 1.2.1 1.2.2 und 1.2.3
+	\renewcommand{\theparagraph}{\thesection.\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}
+} % aufzählung bei paragraph mit 1.1.2.1 1.2.2 und 1.1.2.3
+
+
+\newcommand{\subsubSecNumOFF}{
+	\renewcommand{\thesubsubsection}{\thesection.\arabic{subsection} \alph{subsubsection})}
+} % aufzählung im subsubsectionmit 1.1 a). 1.1 b). und 1.1 c).
+
+\newcommand{\subsubSecNumON}{
+	\renewcommand{\thesubsubsection}{\thesection.\arabic{subsection}.\arabic{subsubsection}}
+} % aufzählung bei subsubsectionmit 1.1.1 1.2.2 und 1.1.3
+
 
 % Buchstaben vor Subsections für Laborberichte (V2.2, A3.1, usw.) Benutzung mit \laborsubsection{V}{Überschriftstext}
 \newcommand{\laborsubsection}[2] {
