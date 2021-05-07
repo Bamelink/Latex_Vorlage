@@ -67,6 +67,8 @@ includehead,includefoot            % Fuß- und Kopfzeile berücksichtigen
 % Optional: Serifenlose Schriftart aktivieren um Leute zu triggern
 %\renewcommand{\familydefault}{\sfdefault}
 
+\setcounter{secnumdepth}{6} % tiefere referenz ebene möglich z.b. paragraph \label{key}
+
 % Automatisch Text wie "Zitat" in deutsche Anführungszeichen umwandeln
 \MakeOuterQuote{"}
 
@@ -213,6 +215,14 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 \newcommand{\code}[1]{\ttfamily#1\rmfamily} % Beispiel: \code{AC}-Modus
 % \desc{} Command für Text in Math-Mode mit Abstand vor und nach dem Text, nützlich um zB in align etwas beschreiben. z.B.: \desc{eingesetzt ergibt dies:}
 \newcommand{\desc}[1]{{\hspace*{0,7 cm}\text{#1}\hspace*{0,7 cm}}}
+
+\newcommand{\paraNumOFF}{
+	\renewcommand{\theparagraph}{\thesection.\arabic{subsection} \alph{paragraph})}
+} % aufzählung im paragraph mit 1.2 a). 1.2 b). und 1.2 c).
+
+\newcommand{\paraNumON}{
+	\renewcommand{\theparagraph}{\thesection.\arabic{subsection}.\arabic{paragraph}}
+} % aufzählung bei paragraph mit 1.2.1 1.2.2 und 1.2.3
 
 % Buchstaben vor Subsections für Laborberichte (V2.2, A3.1, usw.) Benutzung mit \laborsubsection{V}{Überschriftstext}
 \newcommand{\laborsubsection}[2] {
