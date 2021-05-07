@@ -242,6 +242,7 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 }
 % Einfacher Befehl, um Subsection wieder bei 1 starten, damit Wechsel von V 2.2 zu D 2.1 möglich ist
 \newcommand{\resetlaborsectioncounter}{\setcounter{subsection}{0}}
+\newcommand{\setlaborsectioncounter}[1]{\setcounter{subsection}{#1-1}}
 
 % Helfer-Makro, wird weiter unten im Header benutzt.
 \newcommand{\ifempty}[3]{\ifthenelse{\equal{#1}{}}{#2}{#3}}
