@@ -38,6 +38,12 @@
 \usepackage{xifthen}               % Für if else Logic, wird im Header benutzt
 \usepackage{pdfpages}              % Um PDF Dokument hinzuzufügen
 \usepackage{makecell}			   % ermögtlicht einfache Zeilenumbrüche in einer tabelle
+\usepackage{longtable}			   % tabellen über mehere Seiten mit advanced funktionen
+\usepackage{amssymb}				% viele weitere symbole
+\usepackage{stix2}					% viele mathematische symbole
+%\usepackage{ulem}					% druchstreichen
+\usepackage[normalem]{ulem}			% dursctreichen jedoch ohne Quellenprobleme
+\usepackage{trfsigns}				% weitere besondere Symbole bspw. Laplace
 %%%%%%%%%%%%%%%%%%%%%%%%% Einstellung für Pakete und LaTeX %%%%%%%%%%%%%%%%%%%%%%%%%
 % Bestimmte Warnung von chktex (Latex linter) deaktivieren:
 % chktex-file 46
@@ -97,7 +103,7 @@ includehead,includefoot            % Fuß- und Kopfzeile berücksichtigen
 
 %Die Umgebung von TableS is gleich zu Table, allerdings wird scientific-notation ausgeschaltet innerhalb der Umgebung. Falls Fehler wie: "Package siunitx Error: No space reserved for an exponent" immer tableS statt table verwenden!
 \newenvironment{tableS}{\sisetup{scientific-notation = false}  \begin{table}}{\end{table}\sisetup{scientific-notation = engineering} }
-                                 
+
 \DeclareSIUnit\divisor{div.}       % SIunitx: Volt pro Divisor, zB bei Schirmbildern      
 \DeclareSIUnit\voltpeak{Vp}        % Für Vp in SI
 \DeclareSIUnit\voltppeak{Vpp}      % Für Vpp in SI    
@@ -240,6 +246,14 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 	\subsection{#2}
 	\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 }
+
+% Buchstaben vor Subsubsections für Laborberichte (V2.2, A3.1, usw.) Benutzung mit \laborsubsubsection{V}{Überschriftstext}
+\newcommand{\laborsubsubsectionAlpha}[2] {
+	\renewcommand{\thesubsubsection}{#1 \thesection.\arabic{subsection} \alph{subsubsection})  }
+	\subsubsection{{\boldmath #2}}
+	\renewcommand{\thesubsubsection}{\thesection.\arabic{subsubsection}}
+}
+
 % Einfacher Befehl, um Subsection wieder bei 1 starten, damit Wechsel von V 2.2 zu D 2.1 möglich ist
 \newcommand{\resetlaborsectioncounter}{\setcounter{subsection}{0}}
 \newcommand{\setlaborsectioncounter}[1]{\setcounter{subsection}{#1-1}}
@@ -263,11 +277,34 @@ nooldvoltagedirection              % Neue Art für Spannungsrichtung
 
 \newcommand{\fancypara}[2][0.5ex]{\paragraph{{\boldmath #2 }} $ $ \\[#1]}   % pragraph welcher alles dick schreibt und man den Abstand zur neuen Zeile einstellen kann (standart abstand ist 0.5em).
 \newcommand{\dummyLorem}{
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec consectetur lorem. Aliquam diam nisi, vestibulum et eleifend mollis, luctus sit amet diam. Donec in magna non enim lobortis ultricies eget ac eros. Etiam eget enim pretium arcu sagittis porttitor ac eu tellus. Curabitur quis cursus lorem. Aliquam auctor est auctor metus lobortis convallis. Maecenas elementum sem sed sem suscipit, a mattis justo volutpat. Praesent et pharetra ex. Morbi ac eros quam. Nullam id libero sit amet dolor aliquet tincidunt. Suspendisse scelerisque eleifend tristique. Curabitur nec nisi id arcu tempus malesuada vehicula at enim. } %dumm text
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec consectetur lorem. Aliquam diam nisi, vestibulum et eleifend mollis, luctus sit amet diam. Donec in magna non enim lobortis ultricies eget ac eros. Etiam eget enim pretium arcu sagittis porttitor ac eu tellus. Curabitur quis cursus lorem. Aliquam auctor est auctor metus lobortis convallis. Maecenas elementum sem sed sem suscipit, a mattis justo volutpat. Praesent et pharetra ex. Morbi ac eros quam. Nullam id libero sit amet dolor aliquet tincidunt. Suspendisse scelerisque eleifend tristique. Curabitur nec nisi id arcu tempus malesuada vehicula at enim. } %dumm text
 \newcommand{\dummy}{
 	Text Text Text Text\\
 	Text Text Text Text\\
 	Text Text Text Text\\} 
-
+% Eigene Daten, werden dann in PDF übernommen
+\newcommand{\myAuthor}{\myAuthorA, \AutorAMartikelnummer} 
+\newcommand{\mySecondAuthor}{\myAuthorB, \AutorBMartikelnummer}
 \newcommand{\myDate}{\today} % \today kann durch Text ersetzt werden
 
+\newcommand{\rem}[1]{\textcolor{red}{\sout{#1}}} % ein befehl um sachen zu streichen (hilfreich bei teamarbeit)
+\newcommand{\add}[1]{\textcolor{blue}{#1}} % ein befehl um deinen kollegen zu seiten was neu ist
+% nutzung von \kont 
+%\kont[0]{add argument}{rem argument}    % ich zeige beides mit farbe an wie ohne 0
+%\kont[1]{add argument}{rem argument}    % ich behalte den Inhalt des erstes arguments (add) und schreibe das ohne farbe oder durchstreichung  
+%\kont[2]{add argument}{rem argument}    % ich behalte den Inhalt des zweiten arguments (rem) und schreibe das ohne farbe oder durchstreichung
+%\kont[...]{}{rem argument}    % funktinoniet wie rem
+%\kont[...]{add argument}{}    % funktinoniet wie rem
+\newcommand{\kont}[3][]{%
+	\ifthenelse{\equal{#1}{1}}{#2}{%
+		\ifthenelse{\equal{#1}{2}}{#3}{%
+			\ifthenelse{\equal{#1}{0}}{%
+				\textcolor{blue}{#2} \textcolor{red}{\sout{#3}}}{%
+				\textcolor{blue}{#2} \textcolor{red}{\sout{#3}}}}}%
+}
+\newcommand{\kommentar}[2][]{
+	\ifthenelse{\equal{#1}{1}}{
+		\colorbox{green}{\textcolor{orange}{#2}}
+	}{%
+	}
+}
