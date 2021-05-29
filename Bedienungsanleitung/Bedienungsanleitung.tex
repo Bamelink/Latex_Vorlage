@@ -247,13 +247,15 @@
 	
 	\newpage
 	\section{Einfache Tabellen}
-
+	Um simple Tabellen zu erstellen hilft die Website \url{https://tableconvert.com/}\\
+	Dort können die Spalten manuell ausgefüllt werden oder Excel, CSV, uvm. Tabellen importiert werden. Die Website wandelt die Tabelle dann in Latex Code um.
 
 
 
 	
 	\newpage
 	\section{Mathe- Formelumgebung}
+	Einen Überblick über die Umgebung und Sonderzeichen, welche in Formeln häufig gebraucht werden lässt sich unter \url{https://www-astro.physik.tu-berlin.de/files/Uebung/Dokumentationen/mathe_in_latex2e.pdf} finden
 	\subsection{Formeln}
 	\subsubsection{Einzelne Formeln}
 	Um einfache Mathematische Formeln in den Text einzubinden gibt es folgende Umgebung:
@@ -298,7 +300,7 @@
 	
 	\newpage
 	\section{SI}
-	
+	Ausführliche Dokumentation unter \url{https://ctan.space-pro.be/tex-archive/macros/latex/contrib/siunitx/siunitx.pdf} zu finden.
 	
 	
 	
@@ -373,13 +375,51 @@
 
 	\newpage
 	\section{Programmiercode}
+	Um Programmiercode in das Latex Dokument einzubinden dient das Paket listings.
+	Eine ausführlichere Dokumentation findet man unter \url{https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings}\\
+	Mittels \textbackslash \textbf{lstset\{\}} können Einstellungen vorgenommen werden zum Beispiel um Farben für bestimmte Keywords (z.B. "else if") festegelegt werden, aber auch automatische Zeilenumbrüche und vieles mehr.\\
+	Nun gibt es zwei Möglichkeiten den Programmcode einzubinden:\\
+	1. Datei importieren:
+	\begin{verbatim}
+		\lstinputlisting[caption=My caption]{sourcefile.cpp}
+	\end{verbatim}
+	Hierbei ist darauf zu achten, dass die Datei "sourcefile.cpp" auch in dem Ordner der Datei liegt, die auch kompiliert wird. Ansonsten muss von diesem Ordner aus mittels ../ bzw /Ordnername zu dem jeweiligen Ordner der Codedatei navigiert werden.\\
+	
+	2. Code händisch einfügen:
+	\begin{verbatim}
+		\begin{lstlisting}[frame=single]  % Start your code-block
+			for i:=maxint to 0 do
+			begin
+			{ do nothing }
+			end;
+			Write('Case insensitive ');
+			Write('Pascal keywords.');
+		\end{lstlisting}
+	\end{verbatim}
 	
 	
 	
 	
 	\newpage
-	\section{Fehlermeldungen}
+	\section{PDF-Seiten einbinden}
+		Um PDF-Seiten einzubinden dient der Befehl\\ 
+		\textbackslash includepdf[einstellungen]\{Name des PDF\}\\
+		Bei soll nur eine Seiten eingebunden werden, kann [einstellungen] weggelassen werden. Ansonsten kann dort die Seitenzahl eingetragen werden oder einfach - um das gesammte PDF einzubinden.\\
+		Bei Name des PDF muss der Name der PDF Datei eingetragen werden OHNE die Endung .pdf\\
+		Falls das PDF in einem anderen Ordner liegt kann man mittels ../ einen Ordner nach oben gehen oder mittels Ordner_Name_1/Ordner_Name_2/pdfDatei durch die jeweiligen Unterordner zu der Datei navigieren.\\
+		Weitere Dokumentation ist unter \url{https://www.namsu.de/Extra/pakete/Pdfpages.html} zu finden.
+			
+		
+		
+	\newpage
+	\section{PGFPlots}
+	Um Graphen mit Latex zu erstellen gibt es das Paket PDFPlots. Eine ausführliche Dokumentation findet man unter \url{http://pgfplots.sourceforge.net/pgfplots.pdf}.\\
+	 Wir raten allerdings dazu diese mit MatLab oder Python und Matplotlib zu erstellen und dann als Bild in Latex einzufügen, da diese Variante simpler ist und besser nachträgliche Änderungen zulässt.\\
+	 PGFPlots kann allerdings auch 3D Plots, wobei die Befehle sehr ähnlich zu denen von MatLab sind.
 	
+	
+	\newpage
+	\section{Fehlermeldungen}
 	
 	\newpage
 	\printbibliography
